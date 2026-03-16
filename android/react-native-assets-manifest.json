@@ -1,0 +1,30 @@
+[
+  {
+    "path": "src/assets/fonts/manrope/Manrope-Medium.ttf",
+    "sha1": ""
+  },
+  {
+    "path": "src/assets/fonts/manrope/Manrope-Light.ttf",
+    "sha1": ""
+  },
+  {
+    "path": "src/assets/fonts/manrope/Manrope-Regular.ttf",
+    "sha1": ""
+  },
+  {
+    "path": "src/assets/fonts/manrope/Manrope-SemiBold.ttf",
+    "sha1": ""
+  },
+  {
+    "path": "src/assets/fonts/manrope/Manrope-Bold.ttf",
+    "sha1": ""
+  },
+  {
+    "path": "src/assets/fonts/manrope/Manrope-ExtraBold.ttf",
+    "sha1": ""
+  },
+  {
+    "path": "src/assets/fonts/icomoon/icomoon.ttf",
+    "sha1": "01822549efca8441f727173e34eeab41fad90686"
+  }
+]

@@ -39,10 +39,13 @@ local.properties
 
 # node.js
 #
-docs-ru/*
 RNTemplate/node_modules/
 npm-debug.log
 yarn-error.log
+
+# Claude
+CLAUDE.md
+docs-ru/*
 
 # fastlane
 #

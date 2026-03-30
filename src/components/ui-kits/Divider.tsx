@@ -12,7 +12,7 @@ export const Divider: FC<Props> = function (props) {
   return (
     <View
       style={[
-        themeStyles.backgroundTertiary,
+        themeStyles.borderMainBG,
         props.isVertical ? ownStyles.vertical : ownStyles.horizontal,
         props.color && { backgroundColor: props.color },
       ]}

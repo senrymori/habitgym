@@ -58,7 +58,7 @@ export const lightColors = {
   // Background colors
   background: '#D9E2E7',
   backgroundSecondary: '#FFFFFF',
-  backgroundTertiary: '#F6F0EF',
+  backgroundTertiary: '#E6F6FF',
 
   // Typography colors
   text: '#314849',

@@ -49,7 +49,7 @@ export const darkColors: AppThemeColors = {
   primary50: '#0C1716',
   primary100: '#162926',
   primary200: '#274A45',
-  primary300: '#3F6E68',
+  primary300: '#50847F',
   primary400: '#61938E',
   primary500: '#81AAA5',
   primary600: '#A0BFBC',

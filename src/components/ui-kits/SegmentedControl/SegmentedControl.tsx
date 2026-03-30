@@ -1,11 +1,12 @@
 import { FC, useCallback, useEffect } from 'react';
-import { LayoutChangeEvent, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { LayoutChangeEvent, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
 import { SegmentItem } from './SegmentItem';
+import { Card } from '@ui-kits/Card.tsx';
 
-const PADDING = 3;
-const GAP = 3;
+const PADDING = 6;
+const GAP = 4;
 const ANIMATION_DURATION = 200;
 
 interface SegmentedControlProps {
@@ -29,13 +30,12 @@ export const SegmentedControl: FC<SegmentedControlProps> = function (props) {
 
   const handleContainerLayout = useCallback(
     (event: LayoutChangeEvent) => {
-      const totalWidth = event.nativeEvent.layout.width;
-      const sw =
-        (totalWidth - PADDING * 2 - GAP * (props.segments.length - 1)) / props.segments.length;
+      const totalWidth = event.nativeEvent.layout.width - 2;
+      const sw = (totalWidth - PADDING * 2 - GAP * (props.segments.length - 1)) / props.segments.length;
       segmentWidth.value = sw;
       thumbTranslateX.value = props.selectedIndex * (sw + GAP);
     },
-    [props.segments.length, props.selectedIndex, segmentWidth, thumbTranslateX],
+    [props.segments.length, props.selectedIndex, segmentWidth, thumbTranslateX]
   );
 
   const animatedThumbStyle = useAnimatedStyle(() => ({
@@ -56,19 +56,12 @@ export const SegmentedControl: FC<SegmentedControlProps> = function (props) {
         />
       );
     },
-    [props.selectedIndex, props.onChange, themeColors],
+    [props.selectedIndex, props.onChange, themeColors]
   );
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: themeColors.backgroundTertiary,
-          borderColor: themeColors.border,
-        },
-        props.style,
-      ]}
+    <Card
+      style={[styles.container, props.style]}
       onLayout={handleContainerLayout}>
       <Animated.View
         style={[
@@ -81,15 +74,13 @@ export const SegmentedControl: FC<SegmentedControlProps> = function (props) {
         ]}
       />
       {props.segments.map(renderItem)}
-    </View>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderRadius: 10,
-    borderWidth: 1,
     padding: PADDING,
     gap: GAP,
   },
@@ -98,7 +89,7 @@ const styles = StyleSheet.create({
     top: PADDING,
     bottom: PADDING,
     left: PADDING,
-    borderRadius: 8,
+    borderRadius: 12,
     borderWidth: 1,
   },
 });

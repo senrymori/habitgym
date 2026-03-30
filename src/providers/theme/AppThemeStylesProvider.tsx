@@ -66,7 +66,9 @@ function createThemeStyles(colors: AppThemeColors) {
 
     // Border styles
     borderMain: { borderColor: colors.border },
+    borderMainBG: { backgroundColor: colors.border },
     borderSecondary: { borderColor: colors.borderSecondary },
+    borderSecondaryBG: { backgroundColor: colors.borderSecondary },
 
     // Status styles
     success: { color: colors.success },

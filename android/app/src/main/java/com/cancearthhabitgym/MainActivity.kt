@@ -1,4 +1,4 @@
-package com.rntemplate
+package com.cancearthhabitgym
 
 import android.os.Bundle
 import com.facebook.react.ReactActivity
@@ -17,7 +17,7 @@ class MainActivity : ReactActivity() {
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
    */
-  override fun getMainComponentName(): String = "RNTemplate"
+  override fun getMainComponentName(): String = "CancearthHabitGym"
 
   /**
    * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]

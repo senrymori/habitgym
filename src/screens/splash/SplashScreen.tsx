@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { useThemeConfig } from '@providers/theme/ThemeConfigProvider';
-import logoDark from '@assets/images/logo_dark.png';
-import logoLight from '@assets/images/logo_light.png';
+import logoDark from '@assets/images/logo_for_dark.png';
+import logoLight from '@assets/images/logo_for_light.png';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
 import { getStorageValue, StorageKeysEnum } from '@utils/storage-utils.ts';
 import { useAppThemeStyles } from '@providers/theme/AppThemeStylesProvider.tsx';

@@ -2961,9 +2961,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"RNTemplate@workspace:.":
+"CancearthHabitGym@workspace:.":
   version: 0.0.0-use.local
-  resolution: "RNTemplate@workspace:."
+  resolution: "CancearthHabitGym@workspace:."
   dependencies:
     "@babel/core": "npm:^7.25.2"
     "@babel/preset-env": "npm:^7.25.3"

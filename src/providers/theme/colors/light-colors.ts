@@ -56,25 +56,25 @@ export const lightColors = {
   primary900: '#110015',
 
   // Background colors
-  background: '#FFFFFF',
-  backgroundSecondary: '#F9F8F8',
-  backgroundTertiary: '#EBEBEB',
+  background: '#D9E2E7',
+  backgroundSecondary: '#FFFFFF',
+  backgroundTertiary: '#F6F0EF',
 
   // Typography colors
-  text: '#0F0806',
-  textSecondary: '#9C9C9C',
-  textTertiary: '#C7C7C7',
-  textAlternative: '#FFFFFF',
+  text: '#314849',
+  textSecondary: '#647A7E',
+  textTertiary: '#9FA9AA',
+  textAlternative: '#D9E2E7',
 
   // Border colors
-  border: '#DDDDDD',
-  borderSecondary: '#CBCBCB',
+  border: '#647A7E',
+  borderSecondary: '#B9C7C9',
 
   // Status colors
-  success: '#10B981',
-  warning: '#F59E0B',
-  error: '#EF4444',
-  info: '#3B82F6',
+  success: '#00803A',
+  warning: '#AB7500',
+  error: '#A50000',
+  info: '#0073B2',
 };
 
 /**

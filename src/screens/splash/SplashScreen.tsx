@@ -5,12 +5,10 @@ import logoDark from '@assets/images/logo_for_dark.png';
 import logoLight from '@assets/images/logo_for_light.png';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
 import { getStorageValue, StorageKeysEnum } from '@utils/storage-utils.ts';
-import { useAppThemeStyles } from '@providers/theme/AppThemeStylesProvider.tsx';
 import { RootNavigationScreenProps } from '@navigation/navigation-types.ts';
 
 export const SplashScreen: FC<RootNavigationScreenProps<'Splash'>> = function ({ navigation }) {
-  const themeStyles = useAppThemeStyles();
-  const { isDark, isLight } = useThemeConfig();
+  const { isDark } = useThemeConfig();
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -26,7 +24,7 @@ export const SplashScreen: FC<RootNavigationScreenProps<'Splash'>> = function ({
   }, [navigation]);
 
   return (
-    <View style={[sharedLayoutStyles.flex1, sharedLayoutStyles.center, isLight && themeStyles.primary50BG]}>
+    <View style={[sharedLayoutStyles.flex1, sharedLayoutStyles.center]}>
       <Image
         source={isDark ? logoDark : logoLight}
         style={styles.logo}

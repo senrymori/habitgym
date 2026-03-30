@@ -58,23 +58,23 @@ export const darkColors: AppThemeColors = {
   primary900: '#FEF2FF',
 
   // Background colors
-  background: '#131313',
-  backgroundSecondary: '#232323',
-  backgroundTertiary: '#3C3C3C',
+  background: '#2A3D3E',
+  backgroundSecondary: '#3B5159',
+  backgroundTertiary: '#39595C',
 
   // Typography colors
-  text: '#FFFFFF',
-  textSecondary: '#6B6969',
-  textTertiary: '#3E3E3E',
-  textAlternative: '#0F0806',
+  text: '#D9E2E7',
+  textSecondary: '#81A494',
+  textTertiary: '#536B60',
+  textAlternative: '#2A3D3E',
 
   // Border colors
   border: '#232323',
   borderSecondary: '#3C3C3C',
 
   // Status colors
-  success: '#10B981',
-  warning: '#F59E0B',
-  error: '#EF4444',
-  info: '#60A5FA',
+  success: '#44DF58',
+  warning: '#FFAE00',
+  error: '#FF4A4A',
+  info: '#41B9FF',
 };

@@ -1,7 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { useAppThemeStyles } from '@providers/theme/AppThemeStylesProvider';
-import { useThemeConfig } from '@providers/theme/ThemeConfigProvider.tsx';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
 
 interface CardProps extends PropsWithChildren {
@@ -10,7 +9,6 @@ interface CardProps extends PropsWithChildren {
 }
 
 export const Card: FC<CardProps> = function (props) {
-  const { isLight } = useThemeConfig();
   const themeStyles = useAppThemeStyles();
 
   const backgroundStyle =
@@ -18,8 +16,7 @@ export const Card: FC<CardProps> = function (props) {
   const borderStyle = props.variant ? themeStyles.borderSecondary : themeStyles.borderMain;
 
   return (
-    <View
-      style={[styles.container, backgroundStyle, isLight && [sharedLayoutStyles.border1, borderStyle], props.style]}>
+    <View style={[styles.container, backgroundStyle, sharedLayoutStyles.border1, borderStyle, props.style]}>
       {props.children}
     </View>
   );

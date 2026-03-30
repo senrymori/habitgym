@@ -69,8 +69,8 @@ export const darkColors: AppThemeColors = {
   textAlternative: '#2A3D3E',
 
   // Border colors
-  border: '#232323',
-  borderSecondary: '#3C3C3C',
+  border: '#536B60',
+  borderSecondary: '#81A494',
 
   // Status colors
   success: '#44DF58',

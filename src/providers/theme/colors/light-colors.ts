@@ -63,12 +63,12 @@ export const lightColors = {
   // Typography colors
   text: '#314849',
   textSecondary: '#647A7E',
-  textTertiary: '#9FA9AA',
+  textTertiary: '#8A9395',
   textAlternative: '#D9E2E7',
 
   // Border colors
-  border: '#647A7E',
-  borderSecondary: '#B9C7C9',
+  border: '#B9C7C9',
+  borderSecondary: '#647A7E',
 
   // Status colors
   success: '#00803A',

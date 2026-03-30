@@ -44,16 +44,16 @@ export const lightColors = {
   rose900: '#881337',
 
   // Main
-  primary50: '#FFEBFE',
-  primary100: '#F5C4FD',
-  primary200: '#E98EFB',
-  primary300: '#CC3DEA',
-  primary400: '#72008C',
-  primary500: '#5A006E',
-  primary600: '#460056',
-  primary700: '#33003E',
-  primary800: '#200028',
-  primary900: '#110015',
+  primary50: '#E8F0F1',
+  primary100: '#CFDCDE',
+  primary200: '#9AAFB2',
+  primary300: '#647A7E',
+  primary400: '#314849',
+  primary500: '#283C3D',
+  primary600: '#1F3031',
+  primary700: '#172425',
+  primary800: '#0F1819',
+  primary900: '#080D0D',
 
   // Background colors
   background: '#D9E2E7',

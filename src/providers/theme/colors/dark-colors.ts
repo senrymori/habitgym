@@ -46,16 +46,16 @@ export const darkColors: AppThemeColors = {
   rose900: '#FFF1F2',
 
   // Main colors
-  primary50: '#2B0035',
-  primary100: '#3F004E',
-  primary200: '#660080',
-  primary300: '#B22FD4',
-  primary400: '#E56EFF',
-  primary500: '#E987FF',
-  primary600: '#EEA3FF',
-  primary700: '#F3BDFF',
-  primary800: '#F8D6FF',
-  primary900: '#FEF2FF',
+  primary50: '#0C1716',
+  primary100: '#162926',
+  primary200: '#274A45',
+  primary300: '#3F6E68',
+  primary400: '#61938E',
+  primary500: '#81AAA5',
+  primary600: '#A0BFBC',
+  primary700: '#BFD4D2',
+  primary800: '#DDEAE8',
+  primary900: '#F1F6F5',
 
   // Background colors
   background: '#2A3D3E',

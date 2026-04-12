@@ -4,7 +4,6 @@ import { useThemeConfig } from '@providers/theme/ThemeConfigProvider';
 import logoDark from '@assets/images/logo_for_dark.png';
 import logoLight from '@assets/images/logo_for_light.png';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
-import { getStorageValue, StorageKeysEnum } from '@utils/storage-utils.ts';
 import { RootNavigationScreenProps } from '@navigation/navigation-types.ts';
 
 export const SplashScreen: FC<RootNavigationScreenProps<'Splash'>> = function ({ navigation }) {
@@ -12,12 +11,7 @@ export const SplashScreen: FC<RootNavigationScreenProps<'Splash'>> = function ({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const savedPin = getStorageValue(StorageKeysEnum.Pin);
-      if (savedPin) {
-        navigation.reset({ index: 0, routes: [{ name: 'PinCodeStack', params: { screen: 'PinLogin' } }] });
-      } else {
-        navigation.reset({ index: 0, routes: [{ name: 'PinCodeStack' }] });
-      }
+      navigation.reset({ index: 0, routes: [{ name: 'HomeTabs' }] });
     }, 2000);
 
     return () => clearTimeout(timeout);

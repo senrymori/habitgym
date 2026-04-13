@@ -46,6 +46,7 @@ yarn-error.log
 # Claude
 CLAUDE.md
 docs-ru/*
+claude-helper/*
 
 # fastlane
 #

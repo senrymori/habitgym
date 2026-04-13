@@ -8,6 +8,7 @@ import { ThemeConfigProvider } from '@providers/theme/ThemeConfigProvider';
 import { AppThemeColorsProvider } from '@providers/theme/AppThemeColorsProvider';
 import { AppThemeStylesProvider } from '@providers/theme/AppThemeStylesProvider';
 import { SafeAreaStylesProvider } from '@providers/safe-area-styles/SafeAreaStylesProvider.tsx';
+import { DatabaseProvider } from '@providers/DatabaseProvider.tsx';
 
 function App() {
   return (
@@ -18,11 +19,13 @@ function App() {
             <ThemeConfigProvider>
               <AppThemeColorsProvider>
                 <AppThemeStylesProvider>
-                  <LanguageProvider>
-                    <BottomSheetModalProvider>
-                      <AppContainer />
-                    </BottomSheetModalProvider>
-                  </LanguageProvider>
+                  <DatabaseProvider>
+                    <LanguageProvider>
+                      <BottomSheetModalProvider>
+                        <AppContainer />
+                      </BottomSheetModalProvider>
+                    </LanguageProvider>
+                  </DatabaseProvider>
                 </AppThemeStylesProvider>
               </AppThemeColorsProvider>
             </ThemeConfigProvider>

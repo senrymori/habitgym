@@ -17,6 +17,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
@@ -28,7 +29,8 @@
       "@navigation/*": ["src/navigation/*"],
       "@providers/*": ["src/providers/*"],
       "@assets/*": ["src/assets/*"],
-      "@server/*": ["src/server/*"]
+      "@server/*": ["src/server/*"],
+      "@db/*": ["src/db/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

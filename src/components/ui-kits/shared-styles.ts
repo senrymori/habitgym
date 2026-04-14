@@ -37,6 +37,11 @@ export const sharedLayoutStyles = StyleSheet.create({
   ph16: { paddingHorizontal: 16 },
   ph24: { paddingHorizontal: 24 },
   ph32: { paddingHorizontal: 32 },
+  pv8: { paddingVertical: 8 },
+  pv12: { paddingVertical: 12 },
+  pv16: { paddingVertical: 16 },
+  pv24: { paddingVertical: 24 },
+  pv32: { paddingVertical: 32 },
   phLayout: {
     paddingHorizontal: layoutPadding,
   },

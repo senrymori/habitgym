@@ -16,7 +16,7 @@ interface Props {
 export const Header: FC<Props> = function (props) {
   const navigation = useNavigation();
   return (
-    <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap16]}>
+    <View style={[styles.container, sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap16]}>
       {props.isBack && (
         <ButtonIcon
           icon={IconEnum.ChevronLeft}
@@ -40,6 +40,9 @@ export const Header: FC<Props> = function (props) {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    minHeight: 28,
+  },
   title: {
     ...sharedLayoutStyles.fullLayout,
     ...sharedLayoutStyles.center,

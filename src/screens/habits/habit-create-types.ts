@@ -1,4 +1,5 @@
 import { HabitType, TrackingMode } from '@db/db-types';
+import { IconEnum } from '@ui-kits/Typography/typography-consts.ts';
 
 export interface HabitTaskDraft {
   id?: string;
@@ -7,7 +8,7 @@ export interface HabitTaskDraft {
 }
 
 export interface HabitFormValues {
-  icon: string;
+  icon: IconEnum;
   title: string;
   description: string;
   habitType: HabitType;

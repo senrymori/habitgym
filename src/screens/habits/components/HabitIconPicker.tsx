@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, Fragment, useCallback, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { ModalBottomSheet } from '@components/modals/ModalBottomSheet';
 import { Typography } from '@ui-kits/Typography/Typography';
@@ -8,7 +8,7 @@ import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
 import { HabitIconPickerCell } from './HabitIconPickerCell';
 
 interface HabitIconPickerProps {
-  value: string;
+  value: IconEnum;
   onChange: (icon: string) => void;
 }
 
@@ -69,7 +69,7 @@ export const HabitIconPicker: FC<HabitIconPickerProps> = function (props) {
   );
 
   return (
-    <>
+    <Fragment>
       <Pressable
         onPress={open}
         style={[
@@ -78,19 +78,11 @@ export const HabitIconPicker: FC<HabitIconPickerProps> = function (props) {
           sharedLayoutStyles.border1,
           { backgroundColor: themeColors.backgroundSecondary, borderColor: themeColors.border },
         ]}>
-        {value ? (
-          <Typography
-            icon={value as IconEnum}
-            size={28}
-            color={themeColors.text}
-          />
-        ) : (
-          <Typography
-            size={28}
-            color={themeColors.textTertiary}>
-            {'＋'}
-          </Typography>
-        )}
+        <Typography
+          icon={value ? value : IconEnum.Plus}
+          size={28}
+          color={themeColors.text}
+        />
       </Pressable>
 
       <ModalBottomSheet
@@ -102,14 +94,14 @@ export const HabitIconPicker: FC<HabitIconPickerProps> = function (props) {
           </View>
         </View>
       </ModalBottomSheet>
-    </>
+    </Fragment>
   );
 };
 
 const styles = StyleSheet.create({
   trigger: {
-    width: 64,
-    height: 64,
-    borderRadius: 16,
+    width: 48,
+    height: 48,
+    borderRadius: 8,
   },
 });

@@ -48,9 +48,9 @@ export const ru: typeof en = {
     emptyList: 'Ещё нет привычек',
     planned: 'Запланировано',
     type: {
-      counter: 'Календарная',
-      weekly: 'Дни недели',
-      tracking: 'Трекинг',
+      counter: 'Ежедневно',
+      weekly: 'Еженедельно',
+      tracking: 'План на день',
     },
     streakDays: {
       one: '{count} день',

@@ -46,9 +46,9 @@ export const en = {
     emptyList: 'No habits yet',
     planned: 'Planned',
     type: {
-      counter: 'Calendar',
+      counter: 'Daily',
       weekly: 'Weekly',
-      tracking: 'Tracking',
+      tracking: 'Day plan',
     },
     streakDays: {
       one: '{count} day',

@@ -30,7 +30,7 @@ export const HabitDayTasksBlock: FC<HabitDayTasksBlockProps> = function (props) 
 
   return (
     <Card
-      variant={'secondary'}
+      variant={'tertiary'}
       style={sharedLayoutStyles.gap8}>
       <Typography
         size={12}

@@ -45,7 +45,7 @@ export const HabitDetailScreen: FC<HabitTabStackNavigationScreenProps<'HabitDeta
   return (
     <ScrollView
       style={safeAreaStyles.pLayoutGrow}
-      contentContainerStyle={[sharedLayoutStyles.gap16, sharedLayoutStyles.flexGrow1]}
+      contentContainerStyle={[sharedLayoutStyles.gap16, sharedLayoutStyles.flexGrow1, sharedLayoutStyles.pb24]}
       showsVerticalScrollIndicator={false}>
       <HabitDetailHeader
         icon={habit.icon}

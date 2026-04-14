@@ -1,6 +1,7 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
+import { addDays, endOfMonth, format, startOfMonth } from 'date-fns';
 import { Card } from '@ui-kits/Card';
 import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
@@ -24,8 +25,18 @@ interface HabitMonthCalendarProps {
 
 LocaleConfig.locales['ru'] = {
   monthNames: [
-    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
   ],
   monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
   dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
@@ -40,13 +51,29 @@ export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) 
 
   LocaleConfig.defaultLocale = currentLanguage === Locale.ru ? 'ru' : 'en';
 
-  const weeklyRestricted =
+  const hasScheduledDays =
     props.habit.habitType === 'weekly' ||
     (props.habit.habitType === 'tracking' && props.habit.trackingMode === 'weekly');
   const selectedDays = props.habit.parsedDaysOfWeek;
 
+  const [visibleMonth, setVisibleMonth] = useState<Date>(() => new Date());
+
+  const scheduledDates = useMemo(() => {
+    if (!hasScheduledDays || selectedDays.length === 0) return new Set<string>();
+    const result = new Set<string>();
+    const from = addDays(startOfMonth(visibleMonth), -7);
+    const to = addDays(endOfMonth(visibleMonth), 7);
+    for (let d = from; d <= to; d = addDays(d, 1)) {
+      if (selectedDays.includes(getWeekdayIndex(d))) {
+        result.add(format(d, 'yyyy-MM-dd'));
+      }
+    }
+    return result;
+  }, [hasScheduledDays, selectedDays, visibleMonth]);
+
   const markedDates: MarkedDates = useMemo(() => {
     const map: MarkedDates = {};
+    const completedDates = new Set<string>();
 
     if (props.habit.habitType === 'tracking') {
       const byDate = new Map<string, Set<string>>();
@@ -57,40 +84,63 @@ export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) 
       });
       const totalTasks = props.tasks.length;
       byDate.forEach((ids, date) => {
-        if (totalTasks > 0 && ids.size > 0) {
-          map[date] = {
-            marked: true,
-            dotColor: themeColors.primary400,
-          };
-        }
+        if (totalTasks > 0 && ids.size > 0) completedDates.add(date);
       });
     } else {
       props.completions.forEach((c) => {
-        if (!c.completed) return;
-        map[c.date] = {
-          marked: true,
-          dotColor: themeColors.primary400,
-        };
+        if (c.completed) completedDates.add(c.date);
       });
     }
 
+    scheduledDates.forEach((date) => {
+      if (completedDates.has(date)) return;
+      map[date] = {
+        customStyles: {
+          container: { backgroundColor: themeColors.primary100 },
+          text: { color: themeColors.text },
+        },
+      };
+    });
+
+    completedDates.forEach((date) => {
+      map[date] = {
+        customStyles: {
+          container: { backgroundColor: themeColors.primary400 },
+          text: { color: themeColors.strongWhite },
+        },
+      };
+    });
+
     if (props.expandedDate) {
+      const existing = map[props.expandedDate]?.customStyles ?? {};
       map[props.expandedDate] = {
-        ...(map[props.expandedDate] ?? {}),
-        selected: true,
-        selectedColor: themeColors.primary400,
+        customStyles: {
+          container: {
+            ...(existing.container ?? {}),
+            backgroundColor: themeColors.blue500,
+          },
+          text: { color: themeColors.strongWhite },
+        },
       };
     }
 
     return map;
-  }, [props.completions, props.taskCompletions, props.tasks, props.expandedDate, props.habit.habitType, themeColors]);
+  }, [
+    props.completions,
+    props.taskCompletions,
+    props.tasks,
+    props.expandedDate,
+    props.habit.habitType,
+    scheduledDates,
+    themeColors,
+  ]);
 
   function handleDayPress(day: DateData) {
-    if (weeklyRestricted) {
-      const idx = getWeekdayIndex(new Date(day.dateString));
-      if (!selectedDays.includes(idx)) return;
-    }
     props.onDayPress(day.dateString);
+  }
+
+  function handleMonthChange(date: DateData) {
+    setVisibleMonth(new Date(date.year, date.month - 1, 1));
   }
 
   return (
@@ -106,8 +156,10 @@ export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) 
       </Typography>
       <Calendar
         firstDay={1}
+        markingType={'custom'}
         markedDates={markedDates}
         onDayPress={handleDayPress}
+        onMonthChange={handleMonthChange}
         disableAllTouchEventsForDisabledDays={true}
         theme={{
           backgroundColor: 'transparent',

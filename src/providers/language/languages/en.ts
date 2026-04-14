@@ -43,6 +43,8 @@ export const en = {
     description: 'Description',
     today: 'today',
     noPlansToday: 'no plans for today',
+    emptyList: 'No habits yet',
+    planned: 'Planned',
     type: {
       counter: 'Calendar',
       weekly: 'Weekly',

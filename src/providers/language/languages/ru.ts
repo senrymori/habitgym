@@ -45,6 +45,8 @@ export const ru: typeof en = {
     description: 'Описание',
     today: 'сегодня',
     noPlansToday: 'сегодня нет планов',
+    emptyList: 'Ещё нет привычек',
+    planned: 'Запланировано',
     type: {
       counter: 'Календарная',
       weekly: 'Дни недели',

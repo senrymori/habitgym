@@ -20,6 +20,9 @@ export const WeekdayPicker: FC<WeekdayPickerProps> = function (props) {
         props.onChange?.(next);
         return;
       }
+      if (props.mode === 'active-select' && !props.selectedDays.includes(day)) {
+        return;
+      }
       props.onDayPress?.(day);
     },
     [props.mode, props.selectedDays, props.disabledDays, props.onChange, props.onDayPress]

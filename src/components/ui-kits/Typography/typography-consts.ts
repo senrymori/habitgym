@@ -27,6 +27,7 @@ export const IconEnum = {
   Star: '\ue90d',
   Tasks: '\ue90e',
   Trash: '\ue90f',
+  Plus: '',
   BasketballFill: '\ue910',
   BeerFill: '\ue911',
   CalendarFill: '\ue912',

@@ -1,4 +1,4 @@
-export type WeekdayPickerMode = 'select' | 'toggle-completion' | 'display';
+export type WeekdayPickerMode = 'select' | 'toggle-completion' | 'display' | 'active-select';
 
 export interface WeekdayPickerProps {
   selectedDays: number[];

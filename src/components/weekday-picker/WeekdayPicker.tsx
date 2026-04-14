@@ -15,7 +15,7 @@ export const WeekdayPicker: FC<WeekdayPickerProps> = function (props) {
       if (props.disabledDays?.includes(day)) return;
       if (props.mode === 'select') {
         const next = props.selectedDays.includes(day)
-          ? props.selectedDays.filter(d => d !== day)
+          ? props.selectedDays.filter((d) => d !== day)
           : [...props.selectedDays, day].sort((a, b) => a - b);
         props.onChange?.(next);
         return;
@@ -59,5 +59,9 @@ export const WeekdayPicker: FC<WeekdayPickerProps> = function (props) {
     ]
   );
 
-  return <View style={[sharedLayoutStyles.row, sharedLayoutStyles.gap8, sharedLayoutStyles.center]}>{[1, 2, 3, 4, 5, 6, 7].map(renderDay)}</View>;
+  return (
+    <View style={[sharedLayoutStyles.rowCenterBetween, sharedLayoutStyles.gap8]}>
+      {[1, 2, 3, 4, 5, 6, 7].map(renderDay)}
+    </View>
+  );
 };

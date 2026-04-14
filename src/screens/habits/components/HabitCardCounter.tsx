@@ -18,7 +18,7 @@ export const HabitCardCounter: FC<HabitCardCounterProps> = function (props) {
   const streakText = formatStreak(streak, translations, currentLanguage);
 
   return (
-    <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8, sharedLayoutStyles.mt12]}>
+    <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8]}>
       <Typography size={18}>{'🔥'}</Typography>
       <Typography
         size={16}

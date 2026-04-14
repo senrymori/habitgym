@@ -28,7 +28,7 @@ export const HabitListHeader: FC = function () {
       const habits = database.get<Habit>('habits');
       const tasks = database.get<HabitTask>('habit_tasks');
 
-      await habits.create(record => {
+      await habits.create((record) => {
         record.icon = '🔥';
         record.title = 'Streak counter';
         record.habitType = 'counter';
@@ -41,7 +41,7 @@ export const HabitListHeader: FC = function () {
         record.reminderTimesRaw = JSON.stringify([]);
       });
 
-      await habits.create(record => {
+      await habits.create((record) => {
         record.icon = '📅';
         record.title = 'Weekly habit';
         record.habitType = 'weekly';
@@ -53,7 +53,7 @@ export const HabitListHeader: FC = function () {
         record.reminderTimesRaw = JSON.stringify([]);
       });
 
-      const trackingHabit = await habits.create(record => {
+      const trackingHabit = await habits.create((record) => {
         record.icon = '✅';
         record.title = 'Tracking habit';
         record.habitType = 'tracking';
@@ -66,13 +66,13 @@ export const HabitListHeader: FC = function () {
         record.reminderTimesRaw = JSON.stringify([]);
       });
 
-      await tasks.create(record => {
+      await tasks.create((record) => {
         record.habitId = trackingHabit.id;
         record.time = '09:00';
         record.label = 'Morning routine';
         record.sortOrder = 0;
       });
-      await tasks.create(record => {
+      await tasks.create((record) => {
         record.habitId = trackingHabit.id;
         record.time = '18:00';
         record.label = 'Evening routine';
@@ -84,7 +84,7 @@ export const HabitListHeader: FC = function () {
   return (
     <View style={[sharedLayoutStyles.rowCenterBetween, sharedLayoutStyles.mb16]}>
       <Typography
-        size={24}
+        size={20}
         weight={700}>
         {formatHeaderDate(new Date(), currentLanguage)}
       </Typography>

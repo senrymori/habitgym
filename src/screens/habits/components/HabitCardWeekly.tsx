@@ -12,10 +12,8 @@ interface HabitCardWeeklyProps {
   item: Habit;
 }
 
-const DATE_FORMAT = 'yyyy-MM-dd';
-
 export const HabitCardWeekly: FC<HabitCardWeeklyProps> = function (props) {
-  const actions = useHabitActions();
+  const { toggleHabitCompletion } = useHabitActions();
   const [completions, setCompletions] = useState<HabitCompletion[]>([]);
 
   useEffect(() => {
@@ -29,24 +27,22 @@ export const HabitCardWeekly: FC<HabitCardWeeklyProps> = function (props) {
   const completedDays = useMemo(() => {
     const result: number[] = [];
     weekDates.forEach((dateStr, index) => {
-      const found = completions.some(completion => completion.date === dateStr);
+      const found = completions.some((completion) => completion.date === dateStr);
       if (found) result.push(index + 1);
     });
     return result;
   }, [completions, weekDates]);
 
-  function handleDayPress(day: number) {
-    const dateStr = weekDates[day - 1];
-    actions.toggleHabitCompletion(props.item.id, dateStr);
-  }
-
   return (
-    <View style={[sharedLayoutStyles.gap12, sharedLayoutStyles.mt12]}>
+    <View style={sharedLayoutStyles.gap12}>
       <WeekdayPicker
         mode={'toggle-completion'}
         selectedDays={selectedDays}
         completedDays={completedDays}
-        onDayPress={handleDayPress}
+        onDayPress={(day) => {
+          const dateStr = weekDates[day - 1];
+          toggleHabitCompletion(props.item.id, dateStr);
+        }}
       />
       <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8]}>
         <Typography size={18}>{'🔥'}</Typography>
@@ -64,7 +60,7 @@ function buildWeekDates(today: Date): string[] {
   const monday = startOfWeek(today, { weekStartsOn: 1 });
   const dates: string[] = [];
   for (let i = 0; i < 7; i++) {
-    dates.push(format(addDays(monday, i), DATE_FORMAT));
+    dates.push(format(addDays(monday, i), 'yyyy-MM-dd'));
   }
   return dates;
 }

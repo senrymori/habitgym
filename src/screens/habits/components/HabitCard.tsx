@@ -31,7 +31,7 @@ export const HabitCard: FC<HabitCardProps> = function (props) {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={handlePressCard}>
-      <Card>
+      <Card style={sharedLayoutStyles.gap8}>
         <View style={sharedLayoutStyles.rowCenterBetween}>
           <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8]}>
             <Typography size={20}>{props.item.icon}</Typography>

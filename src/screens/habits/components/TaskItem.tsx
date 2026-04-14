@@ -16,8 +16,8 @@ export const TaskItem: FC<TaskItemProps> = function (props) {
   const themeColors = useAppThemeColors();
 
   const labelStyle = props.completed ? styles.completedLabel : undefined;
-  const checkboxBackground = props.completed ? themeColors.success : 'transparent';
-  const checkboxBorder = props.completed ? themeColors.success : themeColors.border;
+  const checkboxBackground = props.completed ? themeColors.primary400 : 'transparent';
+  const checkboxBorder = props.completed ? themeColors.primary400 : themeColors.border;
 
   return (
     <Pressable
@@ -43,13 +43,13 @@ export const TaskItem: FC<TaskItemProps> = function (props) {
           sharedLayoutStyles.border1,
           { backgroundColor: checkboxBackground, borderColor: checkboxBorder },
         ]}>
-        {props.completed ? (
+        {props.completed && (
           <Typography
             icon={IconEnum.Check}
             size={14}
             color={themeColors.strongWhite}
           />
-        ) : null}
+        )}
       </View>
     </Pressable>
   );

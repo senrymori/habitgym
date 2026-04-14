@@ -21,17 +21,19 @@ export const WeekdayCircle: FC<WeekdayCircleProps> = function (props) {
   let borderColor: string = themeColors.border;
 
   if (props.completed) {
-    backgroundColor = themeColors.success;
+    backgroundColor = themeColors.primary400;
     textColor = themeColors.strongWhite;
-    borderColor = themeColors.success;
+    borderColor = themeColors.primary400;
   } else if (props.selected) {
-    backgroundColor = themeColors.primary500;
-    textColor = themeColors.strongWhite;
-    borderColor = themeColors.primary500;
+    backgroundColor = themeColors.primary100;
+    textColor = themeColors.text;
+    borderColor = themeColors.primary400;
   }
 
   if (props.active) {
-    borderColor = themeColors.primary500;
+    backgroundColor = themeColors.blue500;
+    textColor = themeColors.strongWhite;
+    borderColor = themeColors.blue700;
   }
 
   if (props.disabled) {
@@ -63,6 +65,6 @@ const styles = StyleSheet.create({
   circle: {
     width: 36,
     height: 36,
-    borderRadius: 18,
+    borderRadius: 8,
   },
 });

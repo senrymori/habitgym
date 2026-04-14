@@ -67,7 +67,7 @@ export const HabitCardTracking: FC<HabitCardTrackingProps> = function (props) {
   );
 
   return (
-    <View style={[sharedLayoutStyles.gap12, sharedLayoutStyles.mt12]}>
+    <View style={sharedLayoutStyles.gap8}>
       {trackingMode === 'weekly' && (
         <WeekdayPicker
           mode={'active-select'}

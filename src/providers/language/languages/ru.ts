@@ -67,6 +67,19 @@ export const ru: typeof en = {
       few: '{count} года',
       many: '{count} лет',
     },
+    streakWeeks: {
+      one: '{count} неделя подряд',
+      few: '{count} недели подряд',
+      many: '{count} недель подряд',
+    },
+    inARow: 'подряд',
+    progressToday: '{done}/{total} за сегодня',
+    detail: {
+      typeTitle: 'Тип',
+      streakTitle: 'Стрик',
+      calendarTitle: 'Календарь',
+      tasksTitle: 'Задачи',
+    },
   },
   weekdays: {
     short: {

@@ -65,6 +65,19 @@ export const en = {
       few: '{count} years',
       many: '{count} years',
     },
+    streakWeeks: {
+      one: '{count} week in a row',
+      few: '{count} weeks in a row',
+      many: '{count} weeks in a row',
+    },
+    inARow: 'in a row',
+    progressToday: '{done}/{total} today',
+    detail: {
+      typeTitle: 'Type',
+      streakTitle: 'Streak',
+      calendarTitle: 'Calendar',
+      tasksTitle: 'Tasks',
+    },
   },
   weekdays: {
     short: {

@@ -26,6 +26,8 @@ export const en = {
     },
   },
   tabs: {
-    home: 'Home',
+    habit: 'Habit',
+    gym: 'Gym',
+    track: 'Track',
   },
 };

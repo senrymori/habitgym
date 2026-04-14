@@ -10,13 +10,13 @@ export const HomeButtonsUniversal: FC<Props> = function () {
     <HomeSection title={'Buttons - Universal'}>
       <ButtonUniversal
         text={'Icon left position'}
-        icon={IconEnum.User}
+        icon={IconEnum.UserFill}
         iconPosition={'left'}
       />
       <ButtonUniversal
         colorVariant={'contrast'}
         text={'Icon right position'}
-        icon={IconEnum.ArrowRightOutline}
+        icon={IconEnum.ChevronRight}
         iconPosition={'right'}
       />
     </HomeSection>

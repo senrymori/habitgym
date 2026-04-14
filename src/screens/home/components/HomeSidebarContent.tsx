@@ -23,7 +23,7 @@ export const HomeSidebarContent: FC<DrawerContentComponentProps> = function (pro
         <ButtonIcon
           colorVariant={'contrast'}
           variant={'outline'}
-          icon={IconEnum.CloseOutline}
+          icon={IconEnum.Close}
           onPress={() => props.navigation.closeDrawer()}
         />
       </View>

@@ -37,7 +37,7 @@ export const HomeTabs = () => {
           tabBarLabel: translations.tabs.home,
           tabBarIcon: ({ color, focused }) => (
             <Typography
-              icon={focused ? IconEnum.Home : IconEnum.HomeOutline}
+              icon={focused ? IconEnum.TasksFill : IconEnum.Tasks}
               size={22}
               color={color}
             />

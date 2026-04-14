@@ -19,7 +19,7 @@ export const Header: FC<Props> = function (props) {
     <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap16]}>
       {props.isBack && (
         <ButtonIcon
-          icon={IconEnum.ChevronLeftOutline}
+          icon={IconEnum.ChevronLeft}
           colorVariant={'contrast'}
           onPress={() => navigation.goBack()}
         />

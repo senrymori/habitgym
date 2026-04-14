@@ -41,7 +41,7 @@ export const PinNumpad: FC<PinNumpadProps> = function (props) {
         <ButtonIcon
           key={index}
           style={styles.key}
-          icon={item === NumpadKeyType.Backspace ? IconEnum.ArrowLeftOutline : IconEnum.FaceIdOutline}
+          icon={item === NumpadKeyType.Backspace ? IconEnum.Back : IconEnum.UserFill}
           iconSize={item === NumpadKeyType.Backspace ? 24 : 32}
           onPress={item === NumpadKeyType.Backspace ? props.onBackspace : props.onBiometric}
         />

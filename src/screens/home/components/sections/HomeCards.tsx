@@ -28,7 +28,7 @@ export const HomeCards: FC<Props> = function () {
           style={sharedLayoutStyles.rowCenterBetween}
           onPress={() => setIsExpanded((prevState) => !prevState)}>
           <Typography weight={500}>{'Collapsible'}</Typography>
-          <Typography icon={isExpanded ? IconEnum.ChevronUpOutline : IconEnum.ChevronDownOutline} />
+          <Typography icon={isExpanded ? IconEnum.ChevronUp : IconEnum.ChevronDown} />
         </TouchableOpacity>
         <Collapsible expanded={isExpanded}>
           <Card

@@ -22,15 +22,15 @@ export const HomeInputs: FC = function () {
 
       <InputText
         placeholder={'With icons'}
-        leftIcon={IconEnum.Password}
-        rightIcon={IconEnum.Password}
+        leftIcon={IconEnum.Edit}
+        rightIcon={IconEnum.Edit}
       />
       <InputText
         placeholder={'With Pressable (right icon)'}
-        leftIcon={IconEnum.Password}
+        leftIcon={IconEnum.Edit}
         rightElement={
           <TouchableOpacity hitSlop={UXTapZone}>
-            <Typography icon={IconEnum.Show} />
+            <Typography icon={IconEnum.Star} />
           </TouchableOpacity>
         }
       />

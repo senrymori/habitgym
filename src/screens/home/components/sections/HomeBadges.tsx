@@ -21,7 +21,7 @@ export const HomeBadges: FC = function () {
         />
         <Badge
           text={'With icon'}
-          icon={IconEnum.Time}
+          icon={IconEnum.TimeFill}
         />
       </View>
     </HomeSection>

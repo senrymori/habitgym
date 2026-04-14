@@ -11,21 +11,21 @@ export const HomeButtonsIcons: FC<Props> = function () {
   return (
     <HomeSection title={'Buttons - Only Icon'}>
       <View style={[sharedLayoutStyles.row, sharedLayoutStyles.gap8]}>
-        <ButtonIcon icon={IconEnum.Notification} />
+        <ButtonIcon icon={IconEnum.BangStar} />
         <ButtonIcon
-          icon={IconEnum.Notification}
+          icon={IconEnum.BangStar}
           colorVariant={'contrast'}
         />
         <ButtonIcon
-          icon={IconEnum.Notification}
+          icon={IconEnum.BangStar}
           variant={'outline'}
         />
         <ButtonIcon
-          icon={IconEnum.Notification}
+          icon={IconEnum.BangStar}
           disabled={true}
         />
         <ButtonIcon
-          icon={IconEnum.Notification}
+          icon={IconEnum.BangStar}
           loading={true}
         />
       </View>

@@ -16,7 +16,7 @@ export const HomeHeader: FC<Props> = function (props) {
       <ButtonIcon
         colorVariant={'contrast'}
         variant={'outline'}
-        icon={IconEnum.UserOutline}
+        icon={IconEnum.UserFill}
         onPress={props.onProfilePress}
       />
       <Typography

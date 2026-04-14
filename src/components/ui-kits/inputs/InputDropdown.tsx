@@ -66,7 +66,7 @@ export const InputDropdown = function <T extends object = DropdownOption>(
             value={displayValue}
             editable={false}
             showSoftInputOnFocus={false}
-            rightIcon={IconEnum.ChevronDownOutline}
+            rightIcon={IconEnum.ChevronDown}
           />
         </View>
       </Pressable>

@@ -1,13 +1,14 @@
 import { en } from './languages/en';
+import { ru } from './languages/ru';
 
 export const languages = {
   en,
-  // ru,
+  ru,
 };
 
 export const Locale = {
   en: 'en',
-  // ru: 'ru',
+  ru: 'ru',
 } as const;
 export type Locale = (typeof Locale)[keyof typeof Locale];
 

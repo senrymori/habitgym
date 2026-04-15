@@ -3,8 +3,6 @@ import { TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from '@ui-kits/Card';
 import { Typography } from '@ui-kits/Typography/Typography';
-import { IconEnum } from '@ui-kits/Typography/typography-consts';
-import { ButtonIcon } from '@ui-kits/Button/ButtonIcon';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { Habit } from '@db/models/Habit';
 import { HabitTabStackNavigationHookProps } from '@navigation/home-tabs/habit-tab-stack/habit-tab-stack-types';
@@ -23,43 +21,24 @@ export const HabitCard: FC<HabitCardProps> = function (props) {
     navigation.navigate('HabitDetail', { habitId: props.item.id });
   }
 
-  function handlePressEdit() {
-    navigation.navigate('HabitCreate', { habitId: props.item.id });
-  }
-
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={handlePressCard}>
       <Card style={sharedLayoutStyles.gap8}>
-        <View style={sharedLayoutStyles.rowCenterBetween}>
+        <View style={[sharedLayoutStyles.rowCenterBetween, sharedLayoutStyles.gap8]}>
           <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8]}>
-            <Typography size={20}>{props.item.icon}</Typography>
+            <Typography
+              size={24}
+              icon={props.item.icon}
+            />
             <Typography weight={600}>{props.item.title}</Typography>
           </View>
-          <ButtonIcon
-            icon={IconEnum.Edit}
-            size={'small'}
-            variant={'outline'}
-            colorVariant={'primary'}
-            onPress={handlePressEdit}
-          />
+          {props.item.habitType === 'counter' && <HabitCardCounter item={props.item} />}
         </View>
-        {renderContent(props.item)}
+        {props.item.habitType === 'weekly' && <HabitCardWeekly item={props.item} />}
+        {props.item.habitType === 'tracking' && <HabitCardTracking item={props.item} />}
       </Card>
     </TouchableOpacity>
   );
 };
-
-function renderContent(item: Habit) {
-  switch (item.habitType) {
-    case 'counter':
-      return <HabitCardCounter item={item} />;
-    case 'weekly':
-      return <HabitCardWeekly item={item} />;
-    case 'tracking':
-      return <HabitCardTracking item={item} />;
-    default:
-      return null;
-  }
-}

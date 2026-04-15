@@ -5,6 +5,7 @@ import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useLanguage } from '@providers/language/LanguageProvider';
 import { Habit } from '@db/models/Habit';
 import { calculateStreak, formatStreak } from '@utils/date-utils';
+import { IconEnum } from '@ui-kits/Typography/typography-consts.ts';
 
 interface HabitCardCounterProps {
   item: Habit;
@@ -18,11 +19,15 @@ export const HabitCardCounter: FC<HabitCardCounterProps> = function (props) {
   const streakText = formatStreak(streak, translations, currentLanguage);
 
   return (
-    <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8]}>
-      <Typography size={18}>{'🔥'}</Typography>
+    <View style={[sharedLayoutStyles.rowAlignCenter]}>
       <Typography
-        size={16}
-        weight={500}>
+        size={24}
+        colorVariant={'textSecondary'}
+        icon={IconEnum.FireFill}
+      />
+      <Typography
+        weight={500}
+        colorVariant={'textSecondary'}>
         {streakText}
       </Typography>
     </View>

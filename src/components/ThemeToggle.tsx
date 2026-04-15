@@ -11,7 +11,7 @@ export const ThemeToggle: FC = function () {
     <ButtonIcon
       colorVariant={'contrast'}
       variant={'outline'}
-      icon={IconEnum.ColorFill}
+      icon={isDark ? IconEnum.SunFill : IconEnum.MoonFill}
       onPress={() => {
         setTheme(isDark ? ThemeMode.light : ThemeMode.dark);
       }}

@@ -60,5 +60,8 @@ export const IconEnum = {
   SneakerFill: '\ue92d',
   SquatFill: '\ue92e',
   WeedFill: '\ue92f',
+  MoonFill: '',
+  SunFill: '',
+  FireFill: '',
 } as const;
 export type IconEnum = (typeof IconEnum)[keyof typeof IconEnum];

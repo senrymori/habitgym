@@ -1,9 +1,10 @@
 import { Model, Q, Query } from '@nozbe/watermelondb';
-import { field, text, date, readonly, children, lazy } from '@nozbe/watermelondb/decorators';
+import { children, date, field, lazy, readonly, text } from '@nozbe/watermelondb/decorators';
 import { HabitType, TrackingMode } from '@db/db-types';
 import { HabitTask } from './HabitTask';
 import { HabitCompletion } from './HabitCompletion';
 import { TaskCompletion } from './TaskCompletion';
+import { IconEnum } from '@ui-kits/Typography/typography-consts.ts';
 
 export class Habit extends Model {
   static table = 'habits';
@@ -13,7 +14,7 @@ export class Habit extends Model {
     task_completions: { type: 'has_many', foreignKey: 'habit_id' },
   } as const;
 
-  @text('icon') icon!: string;
+  @text('icon') icon!: IconEnum;
   @text('title') title!: string;
   @text('description') description?: string;
   @field('habit_type') habitType!: HabitType;
@@ -34,5 +35,4 @@ export class Habit extends Model {
   get parsedDaysOfWeek(): number[] {
     return this.daysOfWeekRaw ? JSON.parse(this.daysOfWeekRaw) : [];
   }
-
 }

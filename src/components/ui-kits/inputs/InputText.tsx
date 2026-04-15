@@ -15,7 +15,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(function (props, 
   const { isDark } = useThemeConfig();
 
   const state = resolveInputState({ errorText, disabled, isFocused, isDark });
-  const inputStyles = useInputStyles(state);
+  const inputStyles = useInputStyles(state, props.multiline);
   const masked = isMaskedInput(restProps);
 
   const handleFocus = useCallback(
@@ -118,5 +118,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: 'Manrope-Regular',
     padding: 0,
+  },
+  multiline: {
+    minHeight: 140,
   },
 });

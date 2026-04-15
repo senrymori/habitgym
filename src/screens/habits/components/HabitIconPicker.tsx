@@ -1,11 +1,10 @@
 import { FC, Fragment, useCallback, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ModalBottomSheet } from '@components/modals/ModalBottomSheet';
-import { Typography } from '@ui-kits/Typography/Typography';
 import { IconEnum } from '@ui-kits/Typography/typography-consts';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
-import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
 import { HabitIconPickerCell } from './HabitIconPickerCell';
+import { ButtonIcon } from '@ui-kits/Button/ButtonIcon.tsx';
 
 interface HabitIconPickerProps {
   value: IconEnum;
@@ -42,7 +41,6 @@ const habitIconPresets: IconEnum[] = [
 ];
 
 export const HabitIconPicker: FC<HabitIconPickerProps> = function (props) {
-  const themeColors = useAppThemeColors();
   const { value, onChange } = props;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -70,20 +68,12 @@ export const HabitIconPicker: FC<HabitIconPickerProps> = function (props) {
 
   return (
     <Fragment>
-      <Pressable
+      <ButtonIcon
+        style={styles.container}
+        icon={value ? value : IconEnum.Plus}
+        iconSize={28}
         onPress={open}
-        style={[
-          styles.trigger,
-          sharedLayoutStyles.center,
-          sharedLayoutStyles.border1,
-          { backgroundColor: themeColors.backgroundSecondary, borderColor: themeColors.border },
-        ]}>
-        <Typography
-          icon={value ? value : IconEnum.Plus}
-          size={28}
-          color={themeColors.text}
-        />
-      </Pressable>
+      />
 
       <ModalBottomSheet
         isVisible={isOpen}
@@ -99,9 +89,8 @@ export const HabitIconPicker: FC<HabitIconPickerProps> = function (props) {
 };
 
 const styles = StyleSheet.create({
-  trigger: {
-    width: 48,
-    height: 48,
-    borderRadius: 8,
+  container: {
+    width: 54,
+    height: 54,
   },
 });

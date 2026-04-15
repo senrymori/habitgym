@@ -4,6 +4,7 @@ import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
 import { inputSizeConfig } from './input-consts';
 import { getInputColorKeys } from './input-color-config';
 import { InputState } from '@ui-kits/inputs/input-types.ts';
+import { getValueIfTruthy } from '@utils/common-utils.ts';
 
 export interface InputStyles {
   containerStyle: ViewStyle;
@@ -13,7 +14,7 @@ export interface InputStyles {
   errorColor: string;
 }
 
-export function useInputStyles(state: InputState): InputStyles {
+export function useInputStyles(state: InputState, isMultiline?: boolean): InputStyles {
   const themeColors = useAppThemeColors();
 
   return useMemo(() => {
@@ -21,7 +22,10 @@ export function useInputStyles(state: InputState): InputStyles {
 
     return {
       containerStyle: {
-        height: inputSizeConfig.height,
+        height: isMultiline ? 'auto' : inputSizeConfig.height,
+        minHeight: getValueIfTruthy(inputSizeConfig.height, !!isMultiline),
+        maxHeight: getValueIfTruthy(200, !!isMultiline),
+        paddingVertical: getValueIfTruthy(4, isMultiline),
         borderRadius: inputSizeConfig.borderRadius,
         paddingHorizontal: inputSizeConfig.paddingHorizontal,
         borderWidth: inputSizeConfig.borderWidth,

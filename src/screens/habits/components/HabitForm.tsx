@@ -50,8 +50,7 @@ export const HabitForm: FC<HabitFormProps> = function (props) {
     <FormProvider {...props.form}>
       <View style={[sharedLayoutStyles.gap24, sharedLayoutStyles.pb24]}>
         <View style={sharedLayoutStyles.gap12}>
-          <HabitFormSectionTitle title={translations.habits.create.sectionBasic} />
-          <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8]}>
+          <View style={[sharedLayoutStyles.row, sharedLayoutStyles.gap8]}>
             <Controller
               control={control}
               name={'icon'}

@@ -5,6 +5,7 @@ import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
 import { useLanguage } from '@providers/language/LanguageProvider';
+import { useAppThemeStyles } from '@providers/theme/AppThemeStylesProvider.tsx';
 
 interface DateFieldProps {
   label: string;
@@ -15,6 +16,7 @@ interface DateFieldProps {
 
 export const DateField: FC<DateFieldProps> = function (props) {
   const themeColors = useAppThemeColors();
+  const themeStyles = useAppThemeStyles();
   const { translations, currentLanguage } = useLanguage();
   const [iosOpen, setIosOpen] = useState(false);
 
@@ -65,7 +67,7 @@ export const DateField: FC<DateFieldProps> = function (props) {
             sharedLayoutStyles.flex1,
             sharedLayoutStyles.border1,
             sharedLayoutStyles.br12,
-            { borderColor: themeColors.border, backgroundColor: themeColors.backgroundSecondary },
+            themeStyles.borderSecondary,
           ]}>
           <Typography color={props.value ? themeColors.text : themeColors.textTertiary}>{displayText}</Typography>
         </Pressable>
@@ -75,14 +77,14 @@ export const DateField: FC<DateFieldProps> = function (props) {
           </Pressable>
         ) : null}
       </View>
-      {Platform.OS === 'ios' && iosOpen ? (
+      {Platform.OS === 'ios' && iosOpen && (
         <DateTimePicker
           value={props.value ?? new Date()}
           mode={'date'}
           display={'inline'}
-          onChange={(_, date) => date && props.onChange(date)}
+          onValueChange={(_, date) => date && props.onChange(date)}
         />
-      ) : null}
+      )}
     </View>
   );
 };

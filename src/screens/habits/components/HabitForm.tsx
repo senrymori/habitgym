@@ -109,31 +109,17 @@ export const HabitForm: FC<HabitFormProps> = function (props) {
             onChange={handleHabitTypeChange}
           />
           {habitType === 'counter' ? (
-            <View style={sharedLayoutStyles.gap12}>
-              <Controller
-                control={control}
-                name={'startDate'}
-                render={({ field }) => (
-                  <DateField
-                    label={translations.habits.create.startDate}
-                    value={field.value}
-                    onChange={(d) => field.onChange(d ?? new Date())}
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name={'endDate'}
-                render={({ field }) => (
-                  <DateField
-                    label={translations.habits.create.endDate}
-                    value={field.value}
-                    onChange={field.onChange}
-                    optional={true}
-                  />
-                )}
-              />
-            </View>
+            <Controller
+              control={control}
+              name={'startDate'}
+              render={({ field }) => (
+                <DateField
+                  label={translations.habits.create.startDate}
+                  value={field.value}
+                  onChange={(d) => field.onChange(d ?? new Date())}
+                />
+              )}
+            />
           ) : null}
 
           {showWeekdayPicker ? (

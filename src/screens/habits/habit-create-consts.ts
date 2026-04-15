@@ -17,7 +17,6 @@ export function getDefaultHabitFormValues(): HabitFormValues {
     habitType: 'counter',
     color: habitPresetColors[0],
     startDate: new Date(),
-    endDate: null,
     daysOfWeek: [],
     trackingMode: 'daily',
     tasks: [],

@@ -1,11 +1,13 @@
 import { FC, useCallback, useState } from 'react';
-import { Platform, Pressable, StyleSheet, View } from 'react-native';
-import DateTimePicker, { DateTimePickerAndroid, DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { Calendar, DateData } from 'react-native-calendars';
+import { format } from 'date-fns';
 import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
-import { useLanguage } from '@providers/language/LanguageProvider';
 import { useAppThemeStyles } from '@providers/theme/AppThemeStylesProvider.tsx';
+import { useLanguage } from '@providers/language/LanguageProvider';
+import { ModalBottomSheet } from '@components/modals/ModalBottomSheet';
 
 interface DateFieldProps {
   label: string;
@@ -18,7 +20,7 @@ export const DateField: FC<DateFieldProps> = function (props) {
   const themeColors = useAppThemeColors();
   const themeStyles = useAppThemeStyles();
   const { translations, currentLanguage } = useLanguage();
-  const [iosOpen, setIosOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const displayText = props.value
     ? props.value.toLocaleDateString(currentLanguage === 'ru' ? 'ru-RU' : 'en-US', {
@@ -28,28 +30,19 @@ export const DateField: FC<DateFieldProps> = function (props) {
       })
     : translations.habits.create.notSet;
 
-  const handleAndroidChange = useCallback(
-    (event: DateTimePickerEvent, date?: Date) => {
-      if (event.type === 'set' && date) {
-        props.onChange(date);
-      }
+  const selectedDateString = props.value ? format(props.value, 'yyyy-MM-dd') : undefined;
+
+  const handleOpen = useCallback(() => setIsOpen(true), []);
+  const handleClose = useCallback(() => setIsOpen(false), []);
+  const handleClear = useCallback(() => props.onChange(null), [props.onChange]);
+
+  const handleDayPress = useCallback(
+    (day: DateData) => {
+      props.onChange(new Date(day.timestamp));
+      setIsOpen(false);
     },
     [props.onChange]
   );
-
-  const openPicker = useCallback(() => {
-    if (Platform.OS === 'android') {
-      DateTimePickerAndroid.open({
-        value: props.value ?? new Date(),
-        mode: 'date',
-        onChange: handleAndroidChange,
-      });
-    } else {
-      setIosOpen((v) => !v);
-    }
-  }, [props.value, handleAndroidChange]);
-
-  const handleClear = useCallback(() => props.onChange(null), [props.onChange]);
 
   return (
     <View style={sharedLayoutStyles.gap4}>
@@ -61,7 +54,7 @@ export const DateField: FC<DateFieldProps> = function (props) {
       </Typography>
       <View style={[sharedLayoutStyles.rowCenterBetween, sharedLayoutStyles.gap8]}>
         <Pressable
-          onPress={openPicker}
+          onPress={handleOpen}
           style={[
             styles.trigger,
             sharedLayoutStyles.flex1,
@@ -77,14 +70,36 @@ export const DateField: FC<DateFieldProps> = function (props) {
           </Pressable>
         ) : null}
       </View>
-      {Platform.OS === 'ios' && iosOpen && (
-        <DateTimePicker
-          value={props.value ?? new Date()}
-          mode={'date'}
-          display={'inline'}
-          onValueChange={(_, date) => date && props.onChange(date)}
-        />
-      )}
+
+      <ModalBottomSheet
+        isVisible={isOpen}
+        onClose={handleClose}>
+        <View style={styles.calendarContainer}>
+          <Calendar
+            firstDay={1}
+            current={selectedDateString}
+            selected={selectedDateString}
+            markedDates={
+              selectedDateString
+                ? { [selectedDateString]: { selected: true, selectedColor: themeColors.primary400 } }
+                : {}
+            }
+            onDayPress={handleDayPress}
+            theme={{
+              backgroundColor: 'transparent',
+              calendarBackground: 'transparent',
+              textSectionTitleColor: themeColors.textSecondary,
+              dayTextColor: themeColors.text,
+              todayTextColor: themeColors.primary400,
+              monthTextColor: themeColors.text,
+              arrowColor: themeColors.primary400,
+              textDisabledColor: themeColors.textTertiary,
+              selectedDayBackgroundColor: themeColors.primary400,
+              selectedDayTextColor: themeColors.strongWhite,
+            }}
+          />
+        </View>
+      </ModalBottomSheet>
     </View>
   );
 };
@@ -93,5 +108,9 @@ const styles = StyleSheet.create({
   trigger: {
     paddingHorizontal: 12,
     paddingVertical: 12,
+  },
+  calendarContainer: {
+    paddingHorizontal: 8,
+    paddingBottom: 24,
   },
 });

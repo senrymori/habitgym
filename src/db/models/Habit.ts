@@ -20,7 +20,6 @@ export class Habit extends Model {
   @text('color') color!: string;
   @field('is_archived') isArchived!: boolean;
   @date('start_date') startDate?: Date;
-  @date('end_date') endDate?: Date;
   @text('days_of_week') daysOfWeekRaw!: string;
   @field('tracking_mode') trackingMode?: TrackingMode;
   @field('require_all_tasks') requireAllTasks!: boolean;

@@ -14,7 +14,6 @@ export interface HabitFormValues {
   habitType: HabitType;
   color: string;
   startDate: Date;
-  endDate: Date | null;
   daysOfWeek: number[];
   trackingMode: TrackingMode;
   tasks: HabitTaskDraft[];

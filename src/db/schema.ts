@@ -13,7 +13,6 @@ export const schema = appSchema({
         { name: 'color', type: 'string' },
         { name: 'is_archived', type: 'boolean' },
         { name: 'start_date', type: 'number', isOptional: true },
-        { name: 'end_date', type: 'number', isOptional: true },
         { name: 'days_of_week', type: 'string' },
         { name: 'tracking_mode', type: 'string', isOptional: true },
         { name: 'require_all_tasks', type: 'boolean' },

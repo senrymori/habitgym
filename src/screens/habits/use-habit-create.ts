@@ -47,7 +47,6 @@ export function useHabitCreate(habitId?: string): UseHabitCreateResult {
           habitType: habit.habitType,
           color: habit.color || habitPresetColors[0],
           startDate: habit.startDate ?? new Date(),
-          endDate: habit.endDate ?? null,
           daysOfWeek: habit.parsedDaysOfWeek,
           trackingMode: habit.trackingMode ?? 'daily',
           tasks: draftTasks,
@@ -123,7 +122,6 @@ function applyValuesToHabit(r: Habit, values: HabitFormValues): void {
   r.color = values.color;
   r.isArchived = false;
   r.startDate = values.habitType === 'counter' ? values.startDate : undefined;
-  r.endDate = values.habitType === 'counter' ? values.endDate ?? undefined : undefined;
   const days =
     values.habitType === 'weekly' || (values.habitType === 'tracking' && values.trackingMode === 'weekly')
       ? values.daysOfWeek

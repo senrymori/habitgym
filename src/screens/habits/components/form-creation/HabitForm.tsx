@@ -15,6 +15,7 @@ import { HabitFormTrackingContent } from './HabitFormTrackingContent.tsx';
 
 interface HabitFormProps {
   form: UseFormReturn<HabitFormValues>;
+  isEdit?: boolean;
 }
 
 export const HabitForm: FC<HabitFormProps> = function (props) {
@@ -94,19 +95,21 @@ export const HabitForm: FC<HabitFormProps> = function (props) {
           />
         </View>
 
-        <View style={sharedLayoutStyles.gap12}>
-          <HabitFormSectionTitle title={translations.habits.create.sectionType} />
-          <SegmentedControl
-            segments={[
-              translations.habits.type.counter,
-              translations.habits.type.weekly,
-              translations.habits.type.tracking,
-            ]}
-            selectedIndex={habitTypeIndex < 0 ? 0 : habitTypeIndex}
-            onChange={handleHabitTypeChange}
-          />
-          {habitTypeContent}
-        </View>
+        {!props.isEdit && (
+          <View style={sharedLayoutStyles.gap12}>
+            <HabitFormSectionTitle title={translations.habits.create.sectionType} />
+            <SegmentedControl
+              segments={[
+                translations.habits.type.counter,
+                translations.habits.type.weekly,
+                translations.habits.type.tracking,
+              ]}
+              selectedIndex={habitTypeIndex < 0 ? 0 : habitTypeIndex}
+              onChange={handleHabitTypeChange}
+            />
+            {habitTypeContent}
+          </View>
+        )}
       </View>
     </FormProvider>
   );

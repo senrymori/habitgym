@@ -6,6 +6,7 @@ import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { Habit } from '@db/models/Habit';
 import { HabitTabStackNavigationHookProps } from '@navigation/home-tabs/habit-tab-stack/habit-tab-stack-types';
+import { useObserveRecord } from '@utils/hooks/useObserveRecord';
 import { HabitCardCounter } from './HabitCardCounter';
 import { HabitCardWeekly } from './HabitCardWeekly';
 import { HabitCardTracking } from './HabitCardTracking';
@@ -16,9 +17,10 @@ interface HabitCardProps {
 
 export const HabitCard: FC<HabitCardProps> = function (props) {
   const navigation = useNavigation<HabitTabStackNavigationHookProps<'HabitList'>>();
+  const item = useObserveRecord(props.item);
 
   function handlePressCard() {
-    navigation.navigate('HabitDetail', { habitId: props.item.id });
+    navigation.navigate('HabitDetail', { habitId: item.id });
   }
 
   return (
@@ -30,14 +32,14 @@ export const HabitCard: FC<HabitCardProps> = function (props) {
           <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8]}>
             <Typography
               size={24}
-              icon={props.item.icon}
+              icon={item.icon}
             />
-            <Typography weight={600}>{props.item.title}</Typography>
+            <Typography weight={600}>{item.title}</Typography>
           </View>
-          {props.item.habitType === 'counter' && <HabitCardCounter item={props.item} />}
+          {item.habitType === 'counter' && <HabitCardCounter item={item} />}
         </View>
-        {props.item.habitType === 'weekly' && <HabitCardWeekly item={props.item} />}
-        {props.item.habitType === 'tracking' && <HabitCardTracking item={props.item} />}
+        {item.habitType === 'weekly' && <HabitCardWeekly item={item} />}
+        {item.habitType === 'tracking' && <HabitCardTracking item={item} />}
       </Card>
     </TouchableOpacity>
   );

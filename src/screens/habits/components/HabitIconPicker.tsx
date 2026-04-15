@@ -12,18 +12,19 @@ interface HabitIconPickerProps {
 }
 
 const habitIconPresets: IconEnum[] = [
+  IconEnum.WineFill,
+  IconEnum.BeerFill,
   IconEnum.CigareFill,
   IconEnum.WeedFill,
-  IconEnum.DanceFill,
+  IconEnum.PillFill,
   IconEnum.FoodFill,
+  IconEnum.DanceFill,
   IconEnum.EducationFill,
   IconEnum.FatFill,
-  IconEnum.BeerFill,
   IconEnum.RunFill,
   IconEnum.SneakerFill,
   IconEnum.SquatFill,
   IconEnum.BasketballFill,
-  IconEnum.PillFill,
   IconEnum.DumbFill,
   IconEnum.CalendarFill,
   IconEnum.ColorFill,

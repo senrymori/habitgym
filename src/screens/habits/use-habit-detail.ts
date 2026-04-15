@@ -14,13 +14,21 @@ interface UseHabitDetailResult {
 
 export function useHabitDetail(habitId: string): UseHabitDetailResult {
   const database = useDatabase();
-  const [habit, setHabit] = useState<Habit | null>(null);
+  // Wrap in object so React always sees a new reference on update.
+  // WatermelonDB's findAndObserve emits the same model instance (mutated in-place),
+  // which causes React to bail out of re-rendering when Object.is returns true.
+  const [habitWrapper, setHabitWrapper] = useState<{ value: Habit } | null>(null);
   const [tasks, setTasks] = useState<HabitTask[]>([]);
   const [completions, setCompletions] = useState<HabitCompletion[]>([]);
   const [taskCompletions, setTaskCompletions] = useState<TaskCompletion[]>([]);
 
+  const habit = habitWrapper?.value ?? null;
+
   useEffect(() => {
-    const subscription = database.get<Habit>('habits').findAndObserve(habitId).subscribe(setHabit);
+    const subscription = database
+      .get<Habit>('habits')
+      .findAndObserve(habitId)
+      .subscribe((h) => setHabitWrapper({ value: h }));
     return () => subscription.unsubscribe();
   }, [database, habitId]);
 

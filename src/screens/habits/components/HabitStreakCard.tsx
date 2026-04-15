@@ -71,7 +71,7 @@ function buildCounterStreak(
   if (streakDays === 0) {
     return pluralize(0, translations.habits.streakDays, currentLanguage);
   }
-  const start = subDays(today, streakDays - 1);
+  const start = subDays(today, streakDays);
   const streak = calculateStreak(start, today);
   return `${formatStreak(streak, translations, currentLanguage)} ${translations.habits.inARow}`;
 }

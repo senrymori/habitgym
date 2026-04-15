@@ -63,5 +63,6 @@ export const IconEnum = {
   MoonFill: '',
   SunFill: '',
   FireFill: '',
+  WineFill: '',
 } as const;
 export type IconEnum = (typeof IconEnum)[keyof typeof IconEnum];

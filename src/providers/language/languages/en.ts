@@ -9,6 +9,7 @@ export const en = {
     edit: 'Edit',
     add: 'Add',
     search: 'Search',
+    notSet: 'Not set',
   },
   forms: {
     validation: {
@@ -95,7 +96,6 @@ export const en = {
       },
       requireAllTasks: 'Require all tasks',
       addTask: 'Add task',
-      notSet: 'Not set',
     },
     validation: {
       titleRequired: 'Please enter a title',

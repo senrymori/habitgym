@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Typography } from '@ui-kits/Typography/Typography';
+import { Typography } from '@ui-kits/Typography/Typography.tsx';
 
 interface HabitFormSectionTitleProps {
   title: string;

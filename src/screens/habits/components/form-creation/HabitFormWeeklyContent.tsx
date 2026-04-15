@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { View } from 'react-native';
 import { Controller, useFormContext } from 'react-hook-form';
-import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
-import { Typography } from '@ui-kits/Typography/Typography';
-import { sharedLayoutStyles } from '@ui-kits/shared-styles';
-import { WeekdayPicker } from '@components/weekday-picker/WeekdayPicker';
-import { useLanguage } from '@providers/language/LanguageProvider';
-import { HabitFormValues } from '../habit-create-types';
-import { HabitFormSectionTitle } from './HabitFormSectionTitle';
+import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider.tsx';
+import { Typography } from '@ui-kits/Typography/Typography.tsx';
+import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
+import { WeekdayPicker } from '@components/weekday-picker/WeekdayPicker.tsx';
+import { useLanguage } from '@providers/language/LanguageProvider.tsx';
+import { HabitFormValues } from '../../habit-create-types.ts';
+import { HabitFormSectionTitle } from './HabitFormSectionTitle.tsx';
 
 export const HabitFormWeeklyContent: FC = function () {
   const { translations } = useLanguage();

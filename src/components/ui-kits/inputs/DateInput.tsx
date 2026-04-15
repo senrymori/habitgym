@@ -9,14 +9,14 @@ import { useAppThemeStyles } from '@providers/theme/AppThemeStylesProvider.tsx';
 import { useLanguage } from '@providers/language/LanguageProvider';
 import { ModalBottomSheet } from '@components/modals/ModalBottomSheet';
 
-interface DateFieldProps {
+interface DateInputProps {
   label: string;
   value: Date | null;
   onChange: (date: Date | null) => void;
   optional?: boolean;
 }
 
-export const DateField: FC<DateFieldProps> = function (props) {
+export const DateInput: FC<DateInputProps> = function (props) {
   const themeColors = useAppThemeColors();
   const themeStyles = useAppThemeStyles();
   const { translations, currentLanguage } = useLanguage();
@@ -28,7 +28,7 @@ export const DateField: FC<DateFieldProps> = function (props) {
         month: 'short',
         year: 'numeric',
       })
-    : translations.habits.create.notSet;
+    : translations.common.notSet;
 
   const selectedDateString = props.value ? format(props.value, 'yyyy-MM-dd') : undefined;
 
@@ -78,7 +78,6 @@ export const DateField: FC<DateFieldProps> = function (props) {
           <Calendar
             firstDay={1}
             current={selectedDateString}
-            selected={selectedDateString}
             markedDates={
               selectedDateString
                 ? { [selectedDateString]: { selected: true, selectedColor: themeColors.primary400 } }

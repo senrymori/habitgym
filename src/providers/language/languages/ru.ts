@@ -11,6 +11,7 @@ export const ru: typeof en = {
     edit: 'Редактировать',
     add: 'Добавить',
     search: 'Поиск',
+    notSet: 'Не задано',
   },
   forms: {
     validation: {
@@ -97,7 +98,6 @@ export const ru: typeof en = {
       },
       requireAllTasks: 'Требовать все задачи',
       addTask: 'Добавить задачу',
-      notSet: 'Не задано',
     },
     validation: {
       titleRequired: 'Введите название',

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { View } from 'react-native';
-import { Typography } from '@ui-kits/Typography/Typography';
-import { Switch } from '@ui-kits/Switch';
-import { sharedLayoutStyles } from '@ui-kits/shared-styles';
+import { Typography } from '@ui-kits/Typography/Typography.tsx';
+import { Switch } from '@ui-kits/Switch.tsx';
+import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
 
 interface HabitFormSwitchRowProps {
   label: string;

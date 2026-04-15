@@ -1,17 +1,17 @@
 import { FC, useCallback, useMemo } from 'react';
 import { View } from 'react-native';
 import { Controller, FormProvider, UseFormReturn, useWatch } from 'react-hook-form';
-import { InputText } from '@ui-kits/inputs/InputText';
-import { SegmentedControl } from '@ui-kits/SegmentedControl/SegmentedControl';
-import { sharedLayoutStyles } from '@ui-kits/shared-styles';
-import { HabitIconPicker } from './HabitIconPicker';
-import { useLanguage } from '@providers/language/LanguageProvider';
-import { HabitFormValues } from '../habit-create-types';
-import { habitTypeSegments } from '../habit-create-consts';
-import { HabitFormSectionTitle } from './HabitFormSectionTitle';
-import { HabitFormCounterContent } from './HabitFormCounterContent';
-import { HabitFormWeeklyContent } from './HabitFormWeeklyContent';
-import { HabitFormTrackingContent } from './HabitFormTrackingContent';
+import { InputText } from '@ui-kits/inputs/InputText.tsx';
+import { SegmentedControl } from '@ui-kits/SegmentedControl/SegmentedControl.tsx';
+import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
+import { HabitIconPicker } from '../HabitIconPicker.tsx';
+import { useLanguage } from '@providers/language/LanguageProvider.tsx';
+import { HabitFormValues } from '../../habit-create-types.ts';
+import { habitTypeSegments } from '../../habit-create-consts.ts';
+import { HabitFormSectionTitle } from './HabitFormSectionTitle.tsx';
+import { HabitFormCounterContent } from './HabitFormCounterContent.tsx';
+import { HabitFormWeeklyContent } from './HabitFormWeeklyContent.tsx';
+import { HabitFormTrackingContent } from './HabitFormTrackingContent.tsx';
 
 interface HabitFormProps {
   form: UseFormReturn<HabitFormValues>;
@@ -32,10 +32,14 @@ export const HabitForm: FC<HabitFormProps> = function (props) {
 
   const habitTypeContent = useMemo(() => {
     switch (habitType) {
-      case 'counter': return <HabitFormCounterContent />;
-      case 'weekly': return <HabitFormWeeklyContent />;
-      case 'tracking': return <HabitFormTrackingContent />;
-      default: return null;
+      case 'counter':
+        return <HabitFormCounterContent />;
+      case 'weekly':
+        return <HabitFormWeeklyContent />;
+      case 'tracking':
+        return <HabitFormTrackingContent />;
+      default:
+        return null;
     }
   }, [habitType]);
 
@@ -103,7 +107,6 @@ export const HabitForm: FC<HabitFormProps> = function (props) {
           />
           {habitTypeContent}
         </View>
-
       </View>
     </FormProvider>
   );

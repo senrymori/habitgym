@@ -1,15 +1,15 @@
 import { FC, useCallback } from 'react';
 import { View } from 'react-native';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
-import { sharedLayoutStyles } from '@ui-kits/shared-styles';
-import { SegmentedControl } from '@ui-kits/SegmentedControl/SegmentedControl';
-import { useLanguage } from '@providers/language/LanguageProvider';
-import { HabitFormValues } from '../habit-create-types';
-import { trackingModeSegments } from '../habit-create-consts';
-import { HabitFormSectionTitle } from './HabitFormSectionTitle';
-import { HabitFormSwitchRow } from './HabitFormSwitchRow';
-import { HabitFormWeeklyContent } from './HabitFormWeeklyContent';
-import { TasksEditor } from './TasksEditor';
+import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
+import { SegmentedControl } from '@ui-kits/SegmentedControl/SegmentedControl.tsx';
+import { useLanguage } from '@providers/language/LanguageProvider.tsx';
+import { HabitFormValues } from '../../habit-create-types.ts';
+import { trackingModeSegments } from '../../habit-create-consts.ts';
+import { HabitFormSectionTitle } from './HabitFormSectionTitle.tsx';
+import { HabitFormSwitchRow } from './HabitFormSwitchRow.tsx';
+import { HabitFormWeeklyContent } from './HabitFormWeeklyContent.tsx';
+import { TasksEditor } from '../TasksEditor.tsx';
 
 export const HabitFormTrackingContent: FC = function () {
   const { translations } = useLanguage();
@@ -19,7 +19,8 @@ export const HabitFormTrackingContent: FC = function () {
   const trackingModeIndex = trackingModeSegments.indexOf(trackingMode);
 
   const handleTrackingModeChange = useCallback(
-    (index: number) => setValue('trackingMode', trackingModeSegments[index], { shouldValidate: true, shouldDirty: true }),
+    (index: number) =>
+      setValue('trackingMode', trackingModeSegments[index], { shouldValidate: true, shouldDirty: true }),
     [setValue]
   );
 
@@ -27,10 +28,7 @@ export const HabitFormTrackingContent: FC = function () {
     <View style={sharedLayoutStyles.gap12}>
       <HabitFormSectionTitle title={translations.habits.create.sectionTasks} />
       <SegmentedControl
-        segments={[
-          translations.habits.create.trackingMode.daily,
-          translations.habits.create.trackingMode.weekly,
-        ]}
+        segments={[translations.habits.create.trackingMode.daily, translations.habits.create.trackingMode.weekly]}
         selectedIndex={trackingModeIndex < 0 ? 0 : trackingModeIndex}
         onChange={handleTrackingModeChange}
       />

@@ -17,14 +17,11 @@ export class Habit extends Model {
   @text('title') title!: string;
   @text('description') description?: string;
   @field('habit_type') habitType!: HabitType;
-  @text('color') color!: string;
   @field('is_archived') isArchived!: boolean;
   @date('start_date') startDate?: Date;
   @text('days_of_week') daysOfWeekRaw!: string;
   @field('tracking_mode') trackingMode?: TrackingMode;
   @field('require_all_tasks') requireAllTasks!: boolean;
-  @field('reminders_enabled') remindersEnabled!: boolean;
-  @text('reminder_times') reminderTimesRaw!: string;
   @readonly @date('created_at') createdAt!: Date;
   @readonly @date('updated_at') updatedAt!: Date;
 
@@ -38,7 +35,4 @@ export class Habit extends Model {
     return this.daysOfWeekRaw ? JSON.parse(this.daysOfWeekRaw) : [];
   }
 
-  get parsedReminderTimes(): string[] {
-    return this.reminderTimesRaw ? JSON.parse(this.reminderTimesRaw) : [];
-  }
 }

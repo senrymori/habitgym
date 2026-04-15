@@ -12,12 +12,9 @@ export interface HabitFormValues {
   title: string;
   description: string;
   habitType: HabitType;
-  color: string;
   startDate: Date;
   daysOfWeek: number[];
   trackingMode: TrackingMode;
   tasks: HabitTaskDraft[];
   requireAllTasks: boolean;
-  remindersEnabled: boolean;
-  reminderTimes: string[];
 }

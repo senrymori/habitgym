@@ -12,8 +12,6 @@ import { useLanguage } from '@providers/language/LanguageProvider';
 import { HabitFormValues } from '../habit-create-types';
 import { habitTypeSegments, trackingModeSegments } from '../habit-create-consts';
 import { TasksEditor } from './TasksEditor';
-import { ReminderTimesEditor } from './ReminderTimesEditor';
-import { HabitColorPicker } from './HabitColorPicker';
 import { DateField } from './DateField';
 import { HabitFormSectionTitle } from './HabitFormSectionTitle';
 import { HabitFormSwitchRow } from './HabitFormSwitchRow';
@@ -28,7 +26,6 @@ export const HabitForm: FC<HabitFormProps> = function (props) {
   const { control } = props.form;
   const habitType = useWatch({ control, name: 'habitType' });
   const trackingMode = useWatch({ control, name: 'trackingMode' });
-  const remindersEnabled = useWatch({ control, name: 'remindersEnabled' });
 
   const handleHabitTypeChange = useCallback(
     (index: number) =>
@@ -178,31 +175,6 @@ export const HabitForm: FC<HabitFormProps> = function (props) {
           ) : null}
         </View>
 
-        <HabitFormSectionTitle title={translations.habits.create.sectionReminders} />
-        <Controller
-          control={control}
-          name={'remindersEnabled'}
-          render={({ field }) => (
-            <HabitFormSwitchRow
-              label={translations.habits.create.remindersEnabled}
-              value={field.value}
-              onChange={field.onChange}
-            />
-          )}
-        />
-        {remindersEnabled ? <ReminderTimesEditor /> : null}
-
-        <HabitFormSectionTitle title={translations.habits.create.sectionColor} />
-        <Controller
-          control={control}
-          name={'color'}
-          render={({ field }) => (
-            <HabitColorPicker
-              value={field.value}
-              onChange={field.onChange}
-            />
-          )}
-        />
       </View>
     </FormProvider>
   );

@@ -51,7 +51,7 @@ export const SegmentedControl: FC<SegmentedControlProps> = function (props) {
           item={segment}
           isSelected={index === props.selectedIndex}
           onPress={() => props.onChange(index)}
-          textColor={themeColors.text}
+          textColor={themeColors.strongWhite}
           textSecondaryColor={themeColors.textSecondary}
         />
       );
@@ -67,7 +67,7 @@ export const SegmentedControl: FC<SegmentedControlProps> = function (props) {
         style={[
           styles.thumb,
           {
-            backgroundColor: themeColors.background,
+            backgroundColor: themeColors.primary400,
             borderColor: themeColors.border,
           },
           animatedThumbStyle,

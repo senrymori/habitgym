@@ -7,7 +7,7 @@ import { HabitTask } from '@db/models/HabitTask';
 import { useDatabase } from '@providers/DatabaseProvider';
 import { HabitTabStackNavigationHookProps } from '@navigation/home-tabs/habit-tab-stack/habit-tab-stack-types';
 import { HabitFormValues, HabitTaskDraft } from './habit-create-types';
-import { getDefaultHabitFormValues, habitPresetColors } from './habit-create-consts';
+import { getDefaultHabitFormValues } from './habit-create-consts';
 
 interface UseHabitCreateResult {
   form: UseFormReturn<HabitFormValues>;
@@ -45,14 +45,11 @@ export function useHabitCreate(habitId?: string): UseHabitCreateResult {
           title: habit.title,
           description: habit.description ?? '',
           habitType: habit.habitType,
-          color: habit.color || habitPresetColors[0],
           startDate: habit.startDate ?? new Date(),
           daysOfWeek: habit.parsedDaysOfWeek,
           trackingMode: habit.trackingMode ?? 'daily',
           tasks: draftTasks,
           requireAllTasks: habit.requireAllTasks,
-          remindersEnabled: habit.remindersEnabled,
-          reminderTimes: habit.parsedReminderTimes,
         });
         setIsReady(true);
       } catch (e) {
@@ -119,7 +116,6 @@ function applyValuesToHabit(r: Habit, values: HabitFormValues): void {
   r.title = values.title.trim();
   r.description = values.description.trim() || undefined;
   r.habitType = values.habitType;
-  r.color = values.color;
   r.isArchived = false;
   r.startDate = values.habitType === 'counter' ? values.startDate : undefined;
   const days =
@@ -129,8 +125,6 @@ function applyValuesToHabit(r: Habit, values: HabitFormValues): void {
   r.daysOfWeekRaw = JSON.stringify(days);
   r.trackingMode = values.habitType === 'tracking' ? values.trackingMode : undefined;
   r.requireAllTasks = values.habitType === 'tracking' ? values.requireAllTasks : false;
-  r.remindersEnabled = values.remindersEnabled;
-  r.reminderTimesRaw = JSON.stringify(values.remindersEnabled ? values.reminderTimes : []);
 }
 
 async function syncTasks(

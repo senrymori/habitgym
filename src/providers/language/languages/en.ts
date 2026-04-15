@@ -84,8 +84,6 @@ export const en = {
       sectionType: 'Habit type',
       sectionSchedule: 'Days of week',
       sectionTasks: 'Tasks',
-      sectionReminders: 'Reminders',
-      sectionColor: 'Color',
       placeholderTitle: 'Habit title',
       placeholderDescription: 'Description (optional)',
       placeholderTaskLabel: 'Task label',
@@ -96,9 +94,7 @@ export const en = {
         weekly: 'Weekly',
       },
       requireAllTasks: 'Require all tasks',
-      remindersEnabled: 'Reminders enabled',
       addTask: 'Add task',
-      addReminder: 'Add reminder',
       notSet: 'Not set',
     },
     validation: {

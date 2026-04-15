@@ -1,7 +1,7 @@
 import { appSchema, tableSchema } from '@nozbe/watermelondb';
 
 export const schema = appSchema({
-  version: 1,
+  version: 2,
   tables: [
     tableSchema({
       name: 'habits',
@@ -10,14 +10,11 @@ export const schema = appSchema({
         { name: 'title', type: 'string' },
         { name: 'description', type: 'string', isOptional: true },
         { name: 'habit_type', type: 'string' },
-        { name: 'color', type: 'string' },
         { name: 'is_archived', type: 'boolean' },
         { name: 'start_date', type: 'number', isOptional: true },
         { name: 'days_of_week', type: 'string' },
         { name: 'tracking_mode', type: 'string', isOptional: true },
         { name: 'require_all_tasks', type: 'boolean' },
-        { name: 'reminders_enabled', type: 'boolean' },
-        { name: 'reminder_times', type: 'string' },
         { name: 'created_at', type: 'number' },
         { name: 'updated_at', type: 'number' },
       ],

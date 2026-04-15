@@ -86,8 +86,6 @@ export const ru: typeof en = {
       sectionType: 'Тип привычки',
       sectionSchedule: 'Дни недели',
       sectionTasks: 'Задачи',
-      sectionReminders: 'Напоминания',
-      sectionColor: 'Цвет',
       placeholderTitle: 'Название привычки',
       placeholderDescription: 'Описание (необязательно)',
       placeholderTaskLabel: 'Название задачи',
@@ -98,9 +96,7 @@ export const ru: typeof en = {
         weekly: 'По дням недели',
       },
       requireAllTasks: 'Требовать все задачи',
-      remindersEnabled: 'Напоминания включены',
       addTask: 'Добавить задачу',
-      addReminder: 'Добавить напоминание',
       notSet: 'Не задано',
     },
     validation: {

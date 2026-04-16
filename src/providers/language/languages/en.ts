@@ -78,6 +78,8 @@ export const en = {
       streakTitle: 'Streak',
       calendarTitle: 'Calendar',
       tasksTitle: 'Tasks',
+      deleteTitle: 'Delete habit',
+      deleteMessage: 'Are you sure you want to delete this habit? This action cannot be undone.',
     },
     create: {
       editTitle: 'Edit habit',

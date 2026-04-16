@@ -80,6 +80,8 @@ export const ru: typeof en = {
       streakTitle: 'Стрик',
       calendarTitle: 'Календарь',
       tasksTitle: 'Задачи',
+      deleteTitle: 'Удалить привычку',
+      deleteMessage: 'Вы уверены, что хотите удалить эту привычку? Это действие нельзя отменить.',
     },
     create: {
       editTitle: 'Редактирование',

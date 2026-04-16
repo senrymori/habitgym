@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
-import { addDays, format, startOfWeek } from 'date-fns';
+import { addDays, format, parse, startOfWeek } from 'date-fns';
 import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { WeekdayPicker } from '@components/weekday-picker/WeekdayPicker';
@@ -8,7 +8,7 @@ import { useLanguage } from '@providers/language/LanguageProvider';
 import { Habit } from '@db/models/Habit';
 import { HabitTask } from '@db/models/HabitTask';
 import { TaskCompletion } from '@db/models/TaskCompletion';
-import { getWeekdayIndex } from '@utils/date-utils';
+import { getTasksForDate, getWeekdayIndex } from '@utils/date-utils';
 import { useHabitActions } from '../habit-actions-hooks';
 import { TaskItem } from './TaskItem';
 
@@ -43,6 +43,15 @@ export const HabitCardTracking: FC<HabitCardTrackingProps> = function (props) {
 
   const trackingMode = props.item.trackingMode ?? 'daily';
   const targetDate = trackingMode === 'weekly' ? weekDates[activeDay - 1] : format(today, DATE_FORMAT);
+  const targetDateObj = useMemo(
+    () => (trackingMode === 'weekly' ? parse(weekDates[activeDay - 1], DATE_FORMAT, new Date()) : today),
+    [trackingMode, weekDates, activeDay, today]
+  );
+
+  const visibleTasks = useMemo(
+    () => getTasksForDate(tasks, props.item.trackingMode, targetDateObj),
+    [tasks, props.item, targetDateObj]
+  );
 
   const completedTaskIds = useMemo(() => {
     const ids = new Set<string>();
@@ -82,7 +91,7 @@ export const HabitCardTracking: FC<HabitCardTrackingProps> = function (props) {
         colorVariant={'textSecondary'}>
         {translations.habits.planned}
       </Typography>
-      <View style={sharedLayoutStyles.gap8}>{tasks.map(renderTask)}</View>
+      <View style={sharedLayoutStyles.gap8}>{visibleTasks.map(renderTask)}</View>
     </View>
   );
 };

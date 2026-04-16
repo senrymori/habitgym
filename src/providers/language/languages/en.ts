@@ -90,13 +90,13 @@ export const en = {
       placeholderTitle: 'Habit title',
       placeholderDescription: 'Description (optional)',
       placeholderTaskLabel: 'Task label',
+      taskTime: 'Time',
       startDate: 'Start date',
       endDate: 'End date (optional)',
       trackingMode: {
         daily: 'Daily',
         weekly: 'Weekly',
       },
-      requireAllTasks: 'Require all tasks',
       addTask: 'Add task',
     },
     validation: {
@@ -104,6 +104,7 @@ export const en = {
       daysRequired: 'Select at least one day',
       tasksRequired: 'Add at least one task',
       taskLabelRequired: 'Task label is required',
+      dayTasksRequired: 'Add tasks for at least one day',
     },
   },
   weekdays: {

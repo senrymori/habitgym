@@ -13,6 +13,8 @@ import {
 } from 'date-fns';
 import { ru as ruLocale } from 'date-fns/locale';
 import { Locale, Translations } from '@providers/language/localized-strings';
+import { TrackingMode } from '@db/db-types';
+import { HabitTask } from '@db/models/HabitTask';
 
 export interface Streak {
   years: number;
@@ -65,6 +67,25 @@ export function formatStreak(streak: Streak, t: Translations, locale: Locale): s
 
 export function getWeekdayIndex(date: Date): WeekdayIndex {
   return getISODay(date) as WeekdayIndex;
+}
+
+export function getTasksForDate(
+  tasks: HabitTask[],
+  trackingMode: TrackingMode | undefined,
+  date: Date
+): HabitTask[] {
+  if (trackingMode !== 'weekly') return tasks;
+  const weekday = getWeekdayIndex(date);
+  return tasks.filter((task) => task.dayOfWeek === weekday);
+}
+
+export function countTasksByWeekday(tasks: HabitTask[]): Map<number, number> {
+  const result = new Map<number, number>();
+  for (const task of tasks) {
+    if (task.dayOfWeek == null) continue;
+    result.set(task.dayOfWeek, (result.get(task.dayOfWeek) ?? 0) + 1);
+  }
+  return result;
 }
 
 export function isSameDay(a: Date, b: Date): boolean {

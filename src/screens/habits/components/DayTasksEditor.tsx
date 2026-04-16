@@ -6,14 +6,19 @@ import { IconEnum } from '@ui-kits/Typography/typography-consts';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
 import { useLanguage } from '@providers/language/LanguageProvider';
-import { HabitFormValues } from '../habit-create-types';
+import { HabitDayTasks, HabitFormValues } from '../habit-create-types';
 import { TaskEditorRow } from './TaskEditorRow';
 
-export const TasksEditor: FC = function () {
-  const { control, formState, register } = useFormContext<HabitFormValues>();
+interface DayTasksEditorProps {
+  day: keyof HabitDayTasks;
+}
+
+export const DayTasksEditor: FC<DayTasksEditorProps> = function ({ day }) {
+  const { control } = useFormContext<HabitFormValues>();
   const { translations } = useLanguage();
   const themeColors = useAppThemeColors();
-  const fieldArray = useFieldArray<HabitFormValues, 'tasks'>({ control, name: 'tasks' });
+  const fieldName = `dayTasks.${day}` as const;
+  const fieldArray = useFieldArray<HabitFormValues, any>({ control, name: fieldName });
 
   const handleAdd = useCallback(() => {
     fieldArray.append({ time: '09:00', label: '' });
@@ -24,20 +29,12 @@ export const TasksEditor: FC = function () {
       <TaskEditorRow
         key={field.id}
         index={index}
+        fieldPrefix={fieldName}
         onRemove={() => fieldArray.remove(index)}
       />
     ),
-    [fieldArray]
+    [fieldArray, fieldName]
   );
-
-  register('tasks', {
-    validate: (value, all) =>
-      all.habitType !== 'tracking' || (value && value.length >= 1) || translations.habits.validation.tasksRequired,
-  });
-
-  const errorMessage =
-    (formState.errors.tasks?.root?.message as string | undefined) ??
-    (formState.errors.tasks?.message as string | undefined);
 
   return (
     <View style={sharedLayoutStyles.gap8}>
@@ -59,13 +56,6 @@ export const TasksEditor: FC = function () {
         />
         <Typography colorVariant={'textSecondary'}>{translations.habits.create.addTask}</Typography>
       </Pressable>
-      {!!errorMessage && (
-        <Typography
-          size={12}
-          color={themeColors.error}>
-          {errorMessage}
-        </Typography>
-      )}
     </View>
   );
 };

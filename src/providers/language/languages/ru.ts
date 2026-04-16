@@ -92,13 +92,13 @@ export const ru: typeof en = {
       placeholderTitle: 'Название привычки',
       placeholderDescription: 'Описание (необязательно)',
       placeholderTaskLabel: 'Название задачи',
+      taskTime: 'Время',
       startDate: 'Дата начала',
       endDate: 'Дата окончания (необязательно)',
       trackingMode: {
         daily: 'Ежедневно',
         weekly: 'По дням недели',
       },
-      requireAllTasks: 'Требовать все задачи',
       addTask: 'Добавить задачу',
     },
     validation: {
@@ -106,6 +106,7 @@ export const ru: typeof en = {
       daysRequired: 'Выберите хотя бы один день',
       tasksRequired: 'Добавьте хотя бы одну задачу',
       taskLabelRequired: 'Название задачи обязательно',
+      dayTasksRequired: 'Добавьте задачи хотя бы для одного дня',
     },
   },
   weekdays: {

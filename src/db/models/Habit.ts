@@ -22,8 +22,7 @@ export class Habit extends Model {
   @date('start_date') startDate?: Date;
   @text('days_of_week') daysOfWeekRaw!: string;
   @field('tracking_mode') trackingMode?: TrackingMode;
-  @field('require_all_tasks') requireAllTasks!: boolean;
-  @readonly @date('created_at') createdAt!: Date;
+@readonly @date('created_at') createdAt!: Date;
   @readonly @date('updated_at') updatedAt!: Date;
 
   @children('habit_tasks') tasks!: Query<HabitTask>;

@@ -5,6 +5,17 @@ export interface HabitTaskDraft {
   id?: string;
   time: string;
   label: string;
+  dayOfWeek?: number;
+}
+
+export interface HabitDayTasks {
+  1: HabitTaskDraft[];
+  2: HabitTaskDraft[];
+  3: HabitTaskDraft[];
+  4: HabitTaskDraft[];
+  5: HabitTaskDraft[];
+  6: HabitTaskDraft[];
+  7: HabitTaskDraft[];
 }
 
 export interface HabitFormValues {
@@ -16,5 +27,5 @@ export interface HabitFormValues {
   daysOfWeek: number[];
   trackingMode: TrackingMode;
   tasks: HabitTaskDraft[];
-  requireAllTasks: boolean;
+  dayTasks: HabitDayTasks;
 }

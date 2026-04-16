@@ -8,7 +8,7 @@ import { Habit } from '@db/models/Habit';
 import { HabitCompletion } from '@db/models/HabitCompletion';
 import { HabitTask } from '@db/models/HabitTask';
 import { TaskCompletion } from '@db/models/TaskCompletion';
-import { calculateStreak, formatStreak, getWeekdayIndex, pluralize } from '@utils/date-utils';
+import { calculateStreak, formatStreak, getTasksForDate, getWeekdayIndex, pluralize } from '@utils/date-utils';
 
 interface HabitStreakCardProps {
   habit: Habit;
@@ -121,14 +121,15 @@ function buildTrackingProgress(
     return translations.habits.noPlansToday;
   }
 
-  const total = props.tasks.length;
+  const visibleTasks = getTasksForDate(props.tasks, props.habit.trackingMode, today);
+  const total = visibleTasks.length;
   if (total === 0) return translations.habits.noPlansToday;
 
   const todayStr = format(today, DATE_FORMAT);
   const doneTaskIds = new Set(
     props.taskCompletions.filter((tc) => tc.date === todayStr && tc.completed).map((tc) => tc.taskId)
   );
-  const done = props.tasks.filter((t) => doneTaskIds.has(t.id)).length;
+  const done = visibleTasks.filter((t) => doneTaskIds.has(t.id)).length;
 
   return translations.habits.progressToday.replace('{done}', String(done)).replace('{total}', String(total));
 }

@@ -1,7 +1,7 @@
 import { FC, useMemo, useState } from 'react';
 import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
-import { addDays, endOfMonth, format, startOfMonth } from 'date-fns';
+import { addDays, endOfMonth, format, parse, startOfMonth } from 'date-fns';
 import { Card } from '@ui-kits/Card';
 import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
@@ -12,7 +12,7 @@ import { Habit } from '@db/models/Habit';
 import { HabitCompletion } from '@db/models/HabitCompletion';
 import { HabitTask } from '@db/models/HabitTask';
 import { TaskCompletion } from '@db/models/TaskCompletion';
-import { getWeekdayIndex } from '@utils/date-utils';
+import { countTasksByWeekday, getWeekdayIndex } from '@utils/date-utils';
 
 interface HabitMonthCalendarProps {
   habit: Habit;
@@ -76,16 +76,26 @@ export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) 
     const completedDates = new Set<string>();
 
     if (props.habit.habitType === 'tracking') {
+      const trackingMode = props.habit.trackingMode ?? 'daily';
       const byDate = new Map<string, Set<string>>();
       props.taskCompletions.forEach((tc) => {
         if (!tc.completed) return;
         if (!byDate.has(tc.date)) byDate.set(tc.date, new Set());
         byDate.get(tc.date)!.add(tc.taskId);
       });
-      const totalTasks = props.tasks.length;
-      byDate.forEach((ids, date) => {
-        if (totalTasks > 0 && ids.size > 0) completedDates.add(date);
-      });
+      if (trackingMode === 'weekly') {
+        const tasksByWeekday = countTasksByWeekday(props.tasks);
+        byDate.forEach((ids, date) => {
+          const weekday = getWeekdayIndex(parse(date, 'yyyy-MM-dd', new Date()));
+          const dayTotal = tasksByWeekday.get(weekday) ?? 0;
+          if (dayTotal > 0 && ids.size === dayTotal) completedDates.add(date);
+        });
+      } else {
+        const totalTasks = props.tasks.length;
+        byDate.forEach((ids, date) => {
+          if (totalTasks > 0 && ids.size === totalTasks) completedDates.add(date);
+        });
+      }
     } else {
       props.completions.forEach((c) => {
         if (c.completed) completedDates.add(c.date);
@@ -131,6 +141,7 @@ export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) 
     props.tasks,
     props.expandedDate,
     props.habit.habitType,
+    props.habit.trackingMode,
     scheduledDates,
     themeColors,
   ]);

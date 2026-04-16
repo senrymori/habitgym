@@ -9,7 +9,7 @@ export function getDefaultHabitFormValues(): Omit<HabitFormValues, 'icon'> {
     daysOfWeek: [],
     trackingMode: 'daily',
     tasks: [],
-    requireAllTasks: true,
+    dayTasks: { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] },
   };
 }
 

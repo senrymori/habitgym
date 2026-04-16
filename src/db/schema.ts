@@ -1,7 +1,7 @@
 import { appSchema, tableSchema } from '@nozbe/watermelondb';
 
 export const schema = appSchema({
-  version: 2,
+  version: 4,
   tables: [
     tableSchema({
       name: 'habits',
@@ -14,7 +14,6 @@ export const schema = appSchema({
         { name: 'start_date', type: 'number', isOptional: true },
         { name: 'days_of_week', type: 'string' },
         { name: 'tracking_mode', type: 'string', isOptional: true },
-        { name: 'require_all_tasks', type: 'boolean' },
         { name: 'created_at', type: 'number' },
         { name: 'updated_at', type: 'number' },
       ],
@@ -26,6 +25,7 @@ export const schema = appSchema({
         { name: 'time', type: 'string' },
         { name: 'label', type: 'string' },
         { name: 'sort_order', type: 'number' },
+        { name: 'day_of_week', type: 'number', isOptional: true },
       ],
     }),
     tableSchema({

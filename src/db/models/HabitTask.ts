@@ -13,6 +13,7 @@ export class HabitTask extends Model {
   @text('time') time!: string;
   @text('label') label!: string;
   @field('sort_order') sortOrder!: number;
+  @field('day_of_week') dayOfWeek?: number;
 
   @relation('habits', 'habit_id') habit!: Relation<Habit>;
 }

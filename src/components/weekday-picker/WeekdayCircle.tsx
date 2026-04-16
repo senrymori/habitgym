@@ -63,8 +63,8 @@ export const WeekdayCircle: FC<WeekdayCircleProps> = function (props) {
 
 const styles = StyleSheet.create({
   circle: {
-    width: 36,
-    height: 36,
+    flex: 1,
+    aspectRatio: 1,
     borderRadius: 8,
   },
 });

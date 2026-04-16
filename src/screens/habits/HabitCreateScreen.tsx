@@ -5,7 +5,7 @@ import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useSafeAreaStyles } from '@providers/safe-area-styles/SafeAreaStylesProvider';
 import { useLanguage } from '@providers/language/LanguageProvider';
 import { HabitTabStackNavigationScreenProps } from '@navigation/home-tabs/habit-tab-stack/habit-tab-stack-types';
-import { useHabitCreate } from './use-habit-create';
+import { useHabitCreate } from './habit-create-hooks';
 import { HabitForm } from './components/form-creation/HabitForm.tsx';
 import { Header } from '@components/Header.tsx';
 import { ButtonText } from '@ui-kits/Button/ButtonText.tsx';

@@ -11,7 +11,7 @@ import {
 } from '@navigation/home-tabs/habit-tab-stack/habit-tab-stack-types.ts';
 import { useRoute } from '@react-navigation/core';
 import { useLanguage } from '@providers/language/LanguageProvider';
-import { useHabitActions } from '@screens/habits/use-habit-actions';
+import { useHabitActions } from '@screens/habits/habit-actions-hooks';
 
 interface HabitDetailHeaderProps {
   icon: IconEnum;

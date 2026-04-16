@@ -9,7 +9,7 @@ import { Habit } from '@db/models/Habit';
 import { HabitTask } from '@db/models/HabitTask';
 import { TaskCompletion } from '@db/models/TaskCompletion';
 import { getWeekdayIndex } from '@utils/date-utils';
-import { useHabitActions } from '../use-habit-actions';
+import { useHabitActions } from '../habit-actions-hooks';
 import { TaskItem } from './TaskItem';
 
 interface HabitCardTrackingProps {

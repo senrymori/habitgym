@@ -7,7 +7,7 @@ import { useLanguage } from '@providers/language/LanguageProvider';
 import { Habit } from '@db/models/Habit';
 import { HabitListHeader } from './components/HabitListHeader';
 import { HabitCard } from './components/HabitCard';
-import { useHabitsList } from './use-habits-list';
+import { useHabitsList } from './habits-list-hooks';
 
 const renderItem: ListRenderItem<Habit> = function ({ item }) {
   return <HabitCard item={item} />;

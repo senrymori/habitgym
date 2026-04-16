@@ -6,7 +6,7 @@ import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useLanguage } from '@providers/language/LanguageProvider';
 import { HabitTask } from '@db/models/HabitTask';
 import { TaskCompletion } from '@db/models/TaskCompletion';
-import { useHabitActions } from '../use-habit-actions';
+import { useHabitActions } from '../habit-actions-hooks';
 import { TaskItem } from './TaskItem';
 
 interface HabitDayTasksBlockProps {

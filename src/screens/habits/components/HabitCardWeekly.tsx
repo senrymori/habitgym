@@ -6,7 +6,7 @@ import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { WeekdayPicker } from '@components/weekday-picker/WeekdayPicker';
 import { Habit } from '@db/models/Habit';
 import { HabitCompletion } from '@db/models/HabitCompletion';
-import { useHabitActions } from '../use-habit-actions';
+import { useHabitActions } from '../habit-actions-hooks';
 
 interface HabitCardWeeklyProps {
   item: Habit;

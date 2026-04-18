@@ -1,6 +1,6 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles.ts';
 import { SegmentedControl } from '@ui-kits/SegmentedControl/SegmentedControl.tsx';
 import { Typography } from '@ui-kits/Typography/Typography.tsx';
@@ -10,6 +10,7 @@ import { WeekdayPicker } from '@components/weekday-picker/WeekdayPicker.tsx';
 import { HabitDayTasks, HabitFormValues } from '../../habit-create-types.ts';
 import { trackingModeSegments } from '../../habit-create-consts.ts';
 import { HabitFormSectionTitle } from './HabitFormSectionTitle.tsx';
+import { HabitFormSwitchRow } from './HabitFormSwitchRow.tsx';
 import { HabitFormWeeklyContent } from './HabitFormWeeklyContent.tsx';
 import { TasksEditor } from '../TasksEditor.tsx';
 import { DayTasksEditor } from '../DayTasksEditor.tsx';
@@ -59,7 +60,7 @@ export const HabitFormTrackingContent: FC = function () {
     (formState.errors.dayTasks?.message as string | undefined);
 
   return (
-    <View style={sharedLayoutStyles.gap12}>
+    <View style={[sharedLayoutStyles.gap12]}>
       <HabitFormSectionTitle title={translations.habits.create.sectionTasks} />
       <SegmentedControl
         segments={[translations.habits.create.trackingMode.daily, translations.habits.create.trackingMode.weekly]}
@@ -67,19 +68,30 @@ export const HabitFormTrackingContent: FC = function () {
         onChange={handleTrackingModeChange}
       />
       {trackingMode === 'weekly' ? (
-        <>
+        <Fragment>
           <HabitFormWeeklyContent />
-          {daysOfWeek.length > 0 ? (
-            <>
+          {daysOfWeek.length > 0 && (
+            <Fragment>
               <WeekdayPicker
                 mode={'active-select'}
                 selectedDays={daysOfWeek}
                 activeDay={activeDay ?? undefined}
                 onDayPress={(d) => setActiveDay(d as keyof HabitDayTasks)}
               />
+              <Controller
+                control={control}
+                name={'useTaskTime'}
+                render={({ field }) => (
+                  <HabitFormSwitchRow
+                    label={translations.habits.create.setTimeLabel}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
               {activeDay !== null ? <DayTasksEditor day={activeDay} /> : null}
-            </>
-          ) : null}
+            </Fragment>
+          )}
           {!!errorMessage && (
             <Typography
               size={12}
@@ -87,9 +99,22 @@ export const HabitFormTrackingContent: FC = function () {
               {errorMessage}
             </Typography>
           )}
-        </>
+        </Fragment>
       ) : (
-        <TasksEditor />
+        <Fragment>
+          <Controller
+            control={control}
+            name={'useTaskTime'}
+            render={({ field }) => (
+              <HabitFormSwitchRow
+                label={translations.habits.create.setTimeLabel}
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <TasksEditor />
+        </Fragment>
       )}
     </View>
   );

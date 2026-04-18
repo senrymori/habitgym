@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { NestableScrollContainer } from 'react-native-draggable-flatlist';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useSafeAreaStyles } from '@providers/safe-area-styles/SafeAreaStylesProvider';
 import { useLanguage } from '@providers/language/LanguageProvider';
@@ -25,13 +25,13 @@ export const HabitCreateScreen: FC<HabitTabStackNavigationScreenProps<'HabitCrea
   const saveDisabled = !isValid || isSubmitting || !isReady;
 
   return (
-    <View style={[safeAreaStyles.ptPhLayout, sharedLayoutStyles.flex1]}>
+    <View style={[safeAreaStyles.ptPhLayout, sharedLayoutStyles.flex1, { overflow: 'visible' }]}>
       <Header
         isBack={false}
         title={isEdit ? translations.habits.create.editTitle : translations.habits.newHabit}
       />
 
-      <KeyboardAwareScrollView
+      <NestableScrollContainer
         contentContainerStyle={[sharedLayoutStyles.flexGrow1, sharedLayoutStyles.pv24]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={'handled'}>
@@ -57,7 +57,7 @@ export const HabitCreateScreen: FC<HabitTabStackNavigationScreenProps<'HabitCrea
             disabled={saveDisabled}
           />
         </View>
-      </KeyboardAwareScrollView>
+      </NestableScrollContainer>
     </View>
   );
 };

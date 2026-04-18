@@ -1,5 +1,5 @@
 import { FC, useMemo, useState } from 'react';
-import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
+import { Calendar, DateData } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import { addDays, endOfMonth, format, parse, startOfMonth } from 'date-fns';
 import { Card } from '@ui-kits/Card';
@@ -7,7 +7,6 @@ import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
 import { useLanguage } from '@providers/language/LanguageProvider';
-import { Locale } from '@providers/language/localized-strings';
 import { Habit } from '@db/models/Habit';
 import { HabitCompletion } from '@db/models/HabitCompletion';
 import { HabitTask } from '@db/models/HabitTask';
@@ -23,33 +22,9 @@ interface HabitMonthCalendarProps {
   onDayPress: (dateStr: string) => void;
 }
 
-LocaleConfig.locales['ru'] = {
-  monthNames: [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь',
-  ],
-  monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-  dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-  dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-  today: 'Сегодня',
-};
-LocaleConfig.locales['en'] = LocaleConfig.locales[''];
-
 export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) {
   const themeColors = useAppThemeColors();
-  const { translations, currentLanguage } = useLanguage();
-
-  LocaleConfig.defaultLocale = currentLanguage === Locale.ru ? 'ru' : 'en';
+  const { translations } = useLanguage();
 
   const hasScheduledDays =
     props.habit.habitType === 'weekly' ||

@@ -73,6 +73,7 @@ export function useHabitCreate(habitId?: string): UseHabitCreateResult {
           startDate: habit.startDate ?? new Date(),
           daysOfWeek: parsedDays,
           trackingMode: habit.trackingMode ?? 'daily',
+          useTaskTime: habit.useTaskTime ?? true,
           tasks: dailyTasks,
           dayTasks: dayTasksMap,
         });
@@ -102,9 +103,9 @@ export function useHabitCreate(habitId?: string): UseHabitCreateResult {
               });
               if (values.habitType === 'tracking') {
                 if (values.trackingMode === 'weekly') {
-                  await syncWeeklyTasks(habit, values.daysOfWeek, values.dayTasks, tasksCollection);
+                  await syncWeeklyTasks(habit, values.daysOfWeek, values.dayTasks, values.useTaskTime, tasksCollection);
                 } else {
-                  await syncTasks(habit, values.tasks, tasksCollection);
+                  await syncTasks(habit, values.tasks, values.useTaskTime, tasksCollection);
                 }
               } else {
                 const existing = await habit.sortedTasks.fetch();
@@ -124,7 +125,7 @@ export function useHabitCreate(habitId?: string): UseHabitCreateResult {
                       creates.push(
                         tasksCollection.create((r) => {
                           r.habitId = habit.id;
-                          r.time = task.time;
+                          r.time = values.useTaskTime ? task.time : '';
                           r.label = task.label;
                           r.sortOrder = index;
                           r.dayOfWeek = day;
@@ -138,7 +139,7 @@ export function useHabitCreate(habitId?: string): UseHabitCreateResult {
                     values.tasks.map((task, index) =>
                       tasksCollection.create((r) => {
                         r.habitId = habit.id;
-                        r.time = task.time;
+                        r.time = values.useTaskTime ? task.time : '';
                         r.label = task.label;
                         r.sortOrder = index;
                       })
@@ -176,6 +177,7 @@ function applyValuesToHabit(r: Habit, values: HabitFormValues): void {
       : [];
   r.daysOfWeekRaw = JSON.stringify(days);
   r.trackingMode = values.habitType === 'tracking' ? values.trackingMode : undefined;
+  r.useTaskTime = values.habitType === 'tracking' ? values.useTaskTime : true;
 }
 
 async function seedCounterCompletions(
@@ -203,6 +205,7 @@ async function seedCounterCompletions(
 async function syncTasks(
   habit: Habit,
   drafts: HabitTaskDraft[],
+  useTaskTime: boolean,
   tasksCollection: Collection<HabitTask>
 ): Promise<void> {
   const existing = await habit.sortedTasks.fetch();
@@ -214,11 +217,12 @@ async function syncTasks(
 
   for (let index = 0; index < drafts.length; index += 1) {
     const draft = drafts[index];
+    const nextTime = useTaskTime ? draft.time : '';
     if (draft.id && existingById.has(draft.id)) {
       const task = existingById.get(draft.id)!;
-      if (task.time !== draft.time || task.label !== draft.label || task.sortOrder !== index) {
+      if (task.time !== nextTime || task.label !== draft.label || task.sortOrder !== index) {
         await task.update((r) => {
-          r.time = draft.time;
+          r.time = nextTime;
           r.label = draft.label;
           r.sortOrder = index;
         });
@@ -226,7 +230,7 @@ async function syncTasks(
     } else {
       await tasksCollection.create((r) => {
         r.habitId = habit.id;
-        r.time = draft.time;
+        r.time = nextTime;
         r.label = draft.label;
         r.sortOrder = index;
       });
@@ -238,6 +242,7 @@ async function syncWeeklyTasks(
   habit: Habit,
   daysOfWeek: number[],
   dayTasks: HabitDayTasks,
+  useTaskTime: boolean,
   tasksCollection: Collection<HabitTask>
 ): Promise<void> {
   const existing = await habit.sortedTasks.fetch();
@@ -257,11 +262,12 @@ async function syncWeeklyTasks(
     const drafts = dayTasks[key];
     for (let index = 0; index < drafts.length; index += 1) {
       const draft = drafts[index];
+      const nextTime = useTaskTime ? draft.time : '';
       if (draft.id && existingById.has(draft.id)) {
         const task = existingById.get(draft.id)!;
-        if (task.time !== draft.time || task.label !== draft.label || task.sortOrder !== index || task.dayOfWeek !== day) {
+        if (task.time !== nextTime || task.label !== draft.label || task.sortOrder !== index || task.dayOfWeek !== day) {
           await task.update((r) => {
-            r.time = draft.time;
+            r.time = nextTime;
             r.label = draft.label;
             r.sortOrder = index;
             r.dayOfWeek = day;
@@ -270,7 +276,7 @@ async function syncWeeklyTasks(
       } else {
         await tasksCollection.create((r) => {
           r.habitId = habit.id;
-          r.time = draft.time;
+          r.time = nextTime;
           r.label = draft.label;
           r.sortOrder = index;
           r.dayOfWeek = day;

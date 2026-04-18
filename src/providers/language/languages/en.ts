@@ -98,6 +98,7 @@ export const en = {
         weekly: 'Weekly',
       },
       addTask: 'Add task',
+      setTimeLabel: 'Set time',
     },
     validation: {
       titleRequired: 'Please enter a title',

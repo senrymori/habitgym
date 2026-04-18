@@ -9,7 +9,6 @@ export const ThemeToggle: FC = function () {
 
   return (
     <ButtonIcon
-      colorVariant={'contrast'}
       variant={'outline'}
       icon={isDark ? IconEnum.SunFill : IconEnum.MoonFill}
       onPress={() => {

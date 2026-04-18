@@ -26,6 +26,7 @@ export interface HabitFormValues {
   startDate: Date;
   daysOfWeek: number[];
   trackingMode: TrackingMode;
+  useTaskTime: boolean;
   tasks: HabitTaskDraft[];
   dayTasks: HabitDayTasks;
 }

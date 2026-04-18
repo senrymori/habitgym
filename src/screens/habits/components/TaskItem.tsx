@@ -19,6 +19,8 @@ export const TaskItem: FC<TaskItemProps> = function (props) {
   const checkboxBackground = props.completed ? themeColors.primary400 : 'transparent';
   const checkboxBorder = props.completed ? themeColors.primary400 : themeColors.border;
 
+  const leadingText = props.item.time || `#${props.item.sortOrder + 1}`;
+
   return (
     <Pressable
       onPress={props.onPress}
@@ -28,7 +30,7 @@ export const TaskItem: FC<TaskItemProps> = function (props) {
           size={14}
           weight={500}
           colorVariant={'textSecondary'}>
-          {props.item.time}
+          {leadingText}
         </Typography>
         <Typography
           size={14}

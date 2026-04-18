@@ -100,6 +100,7 @@ export const ru: typeof en = {
         weekly: 'По дням недели',
       },
       addTask: 'Добавить задачу',
+      setTimeLabel: 'Установить время',
     },
     validation: {
       titleRequired: 'Введите название',

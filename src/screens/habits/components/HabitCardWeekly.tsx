@@ -7,6 +7,7 @@ import { WeekdayPicker } from '@components/weekday-picker/WeekdayPicker';
 import { Habit } from '@db/models/Habit';
 import { HabitCompletion } from '@db/models/HabitCompletion';
 import { useHabitActions } from '../habit-actions-hooks';
+import { IconEnum } from '@ui-kits/Typography/typography-consts.ts';
 
 interface HabitCardWeeklyProps {
   item: Habit;
@@ -44,10 +45,15 @@ export const HabitCardWeekly: FC<HabitCardWeeklyProps> = function (props) {
           toggleHabitCompletion(props.item.id, dateStr);
         }}
       />
-      <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap8]}>
-        <Typography size={18}>{'🔥'}</Typography>
+      <View style={[sharedLayoutStyles.rowAlignCenter, sharedLayoutStyles.gap4]}>
+        <Typography
+          size={24}
+          colorVariant={'textSecondary'}
+          icon={IconEnum.FireFill}
+        />
         <Typography
           size={16}
+          colorVariant={'textSecondary'}
           weight={500}>
           {`${completedDays.length}/${selectedDays.length}`}
         </Typography>

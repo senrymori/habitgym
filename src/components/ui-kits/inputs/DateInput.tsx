@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Calendar, DateData } from 'react-native-calendars';
 import { format } from 'date-fns';
@@ -8,6 +8,8 @@ import { useAppThemeColors } from '@providers/theme/AppThemeColorsProvider';
 import { useAppThemeStyles } from '@providers/theme/AppThemeStylesProvider.tsx';
 import { useLanguage } from '@providers/language/LanguageProvider';
 import { ModalBottomSheet } from '@components/modals/ModalBottomSheet';
+import { DateInputCalendarHeader } from './DateInputCalendarHeader';
+import { DateInputYearPicker } from './DateInputYearPicker';
 
 interface DateInputProps {
   label: string;
@@ -16,11 +18,19 @@ interface DateInputProps {
   optional?: boolean;
 }
 
+interface CalendarMonthLike {
+  getFullYear: () => number;
+  getMonth: () => number;
+  getTime: () => number;
+}
+
 export const DateInput: FC<DateInputProps> = function (props) {
   const themeColors = useAppThemeColors();
   const themeStyles = useAppThemeStyles();
   const { translations, currentLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const [visibleDate, setVisibleDate] = useState<Date>(() => props.value ?? new Date());
+  const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
 
   const displayText = props.value
     ? props.value.toLocaleDateString(currentLanguage === 'ru' ? 'ru-RU' : 'en-US', {
@@ -31,8 +41,13 @@ export const DateInput: FC<DateInputProps> = function (props) {
     : translations.common.notSet;
 
   const selectedDateString = props.value ? format(props.value, 'yyyy-MM-dd') : undefined;
+  const initialDateString = useMemo(() => format(visibleDate, 'yyyy-MM-dd'), [visibleDate]);
+  const todayYear = useMemo(() => new Date().getFullYear(), []);
 
-  const handleOpen = useCallback(() => setIsOpen(true), []);
+  const handleOpen = useCallback(() => {
+    setVisibleDate(props.value ?? new Date());
+    setIsOpen(true);
+  }, [props.value]);
   const handleClose = useCallback(() => setIsOpen(false), []);
   const handleClear = useCallback(() => props.onChange(null), [props.onChange]);
 
@@ -42,6 +57,34 @@ export const DateInput: FC<DateInputProps> = function (props) {
       setIsOpen(false);
     },
     [props.onChange]
+  );
+
+  const handleMonthChange = useCallback((data: DateData) => {
+    setVisibleDate(new Date(data.year, data.month - 1, 1));
+  }, []);
+
+  const handleOpenYearPicker = useCallback(() => setIsYearPickerOpen(true), []);
+  const handleCloseYearPicker = useCallback(() => setIsYearPickerOpen(false), []);
+
+  const handleSelectYear = useCallback(
+    (year: number) => {
+      setVisibleDate((prev) => new Date(year, prev.getMonth(), 1));
+      setIsYearPickerOpen(false);
+    },
+    []
+  );
+
+  const renderCalendarHeader = useCallback(
+    (month?: CalendarMonthLike) => {
+      if (!month) return null;
+      return (
+        <DateInputCalendarHeader
+          month={month}
+          onYearPress={handleOpenYearPicker}
+        />
+      );
+    },
+    [handleOpenYearPicker]
   );
 
   return (
@@ -77,13 +120,15 @@ export const DateInput: FC<DateInputProps> = function (props) {
         <View style={styles.calendarContainer}>
           <Calendar
             firstDay={1}
-            current={selectedDateString}
+            initialDate={initialDateString}
             markedDates={
               selectedDateString
                 ? { [selectedDateString]: { selected: true, selectedColor: themeColors.primary400 } }
                 : {}
             }
             onDayPress={handleDayPress}
+            onMonthChange={handleMonthChange}
+            renderHeader={renderCalendarHeader}
             theme={{
               backgroundColor: 'transparent',
               calendarBackground: 'transparent',
@@ -99,6 +144,14 @@ export const DateInput: FC<DateInputProps> = function (props) {
           />
         </View>
       </ModalBottomSheet>
+
+      <DateInputYearPicker
+        isVisible={isYearPickerOpen}
+        currentYear={todayYear}
+        selectedYear={visibleDate.getFullYear()}
+        onSelect={handleSelectYear}
+        onClose={handleCloseYearPicker}
+      />
     </View>
   );
 };

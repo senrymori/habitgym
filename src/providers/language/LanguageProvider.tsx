@@ -2,6 +2,7 @@ import { createContext, FC, PropsWithChildren, useContext, useMemo, useState } f
 import { Locale, localizedStrings, Translations } from './localized-strings';
 import * as RNLocalize from 'react-native-localize';
 import { getStorageValue, setStorageValue, StorageKeysEnum } from '@utils/storage-utils';
+import { setCalendarLocale } from '@utils/calendar-locale-utils';
 
 interface LanguageContextValue {
   translations: Translations;
@@ -16,11 +17,13 @@ export const LanguageProvider: FC<PropsWithChildren> = function ({ children }) {
     const storedLanguage =
       (getStorageValue(StorageKeysEnum.Language) ?? RNLocalize.getLocales()[0]?.languageCode ?? Locale.en) as Locale;
     localizedStrings.setLanguage(storedLanguage);
+    setCalendarLocale(storedLanguage);
     return storedLanguage;
   });
 
   const setLanguage = (language: Locale) => {
     localizedStrings.setLanguage(language);
+    setCalendarLocale(language);
     setCurrentLanguage(language);
     setStorageValue(StorageKeysEnum.Language, language);
   };

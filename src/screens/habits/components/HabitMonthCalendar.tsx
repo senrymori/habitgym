@@ -1,7 +1,7 @@
 import { FC, useMemo, useState } from 'react';
 import { Calendar, DateData } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
-import { addDays, endOfMonth, format, parse, startOfMonth } from 'date-fns';
+import { addDays, endOfMonth, format, parse, startOfDay, startOfMonth } from 'date-fns';
 import { Card } from '@ui-kits/Card';
 import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
@@ -71,6 +71,18 @@ export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) 
           if (totalTasks > 0 && ids.size === totalTasks) completedDates.add(date);
         });
       }
+    } else if (props.habit.habitType === 'counter') {
+      const failureDates = new Set(props.completions.filter((c) => !c.completed).map((c) => c.date));
+      const startBoundary = props.habit.startDate ? startOfDay(props.habit.startDate) : null;
+      const today = startOfDay(new Date());
+      const from = addDays(startOfMonth(visibleMonth), -7);
+      const to = addDays(endOfMonth(visibleMonth), 7);
+      const lower = startBoundary && startBoundary > from ? startBoundary : from;
+      const upper = today < to ? today : to;
+      for (let d = lower; d <= upper; d = addDays(d, 1)) {
+        const key = format(d, 'yyyy-MM-dd');
+        if (!failureDates.has(key)) completedDates.add(key);
+      }
     } else {
       props.completions.forEach((c) => {
         if (c.completed) completedDates.add(c.date);
@@ -117,8 +129,10 @@ export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) 
     props.expandedDate,
     props.habit.habitType,
     props.habit.trackingMode,
+    props.habit.startDate,
     scheduledDates,
     themeColors,
+    visibleMonth,
   ]);
 
   function handleDayPress(day: DateData) {
@@ -146,6 +160,14 @@ export const HabitMonthCalendar: FC<HabitMonthCalendarProps> = function (props) 
         markedDates={markedDates}
         onDayPress={handleDayPress}
         onMonthChange={handleMonthChange}
+        minDate={
+          props.habit.habitType === 'counter' && props.habit.startDate
+            ? format(props.habit.startDate, 'yyyy-MM-dd')
+            : undefined
+        }
+        maxDate={
+          props.habit.habitType === 'counter' ? format(new Date(), 'yyyy-MM-dd') : undefined
+        }
         disableAllTouchEventsForDisabledDays={true}
         theme={{
           backgroundColor: 'transparent',

@@ -1,8 +1,10 @@
 import { HabitFormValues } from './habit-create-types';
+import { IconEnum } from '@ui-kits/Typography/typography-consts.ts';
 
-export function getDefaultHabitFormValues(): Omit<HabitFormValues, 'icon'> {
+export function getDefaultHabitFormValues(): HabitFormValues {
   return {
     title: '',
+    icon: IconEnum.WineFill,
     description: '',
     habitType: 'counter',
     startDate: new Date(),

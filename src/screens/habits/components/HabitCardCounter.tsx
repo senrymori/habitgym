@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
-import { format, subDays } from 'date-fns';
+import { format, startOfDay, subDays } from 'date-fns';
 import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useLanguage } from '@providers/language/LanguageProvider';
@@ -26,10 +26,13 @@ export const HabitCardCounter: FC<HabitCardCounterProps> = function (props) {
 
   const streakText = useMemo(() => {
     const today = new Date();
-    const completedDates = new Set(completions.filter((c) => c.completed).map((c) => c.date));
+    const failureDates = new Set(completions.filter((c) => !c.completed).map((c) => c.date));
+    const startBoundary = props.item.startDate ? startOfDay(props.item.startDate) : null;
     let cursor = today;
     let streakDays = 0;
-    while (completedDates.has(format(cursor, DATE_FORMAT))) {
+    while (true) {
+      if (startBoundary && cursor < startBoundary) break;
+      if (failureDates.has(format(cursor, DATE_FORMAT))) break;
       streakDays += 1;
       cursor = subDays(cursor, 1);
     }
@@ -39,7 +42,7 @@ export const HabitCardCounter: FC<HabitCardCounterProps> = function (props) {
     const start = subDays(today, streakDays);
     const streak = calculateStreak(start, today);
     return `${formatStreak(streak, translations, currentLanguage)} ${translations.habits.inARow}`;
-  }, [completions, translations, currentLanguage]);
+  }, [completions, translations, currentLanguage, props.item.startDate]);
 
   return (
     <View style={[sharedLayoutStyles.rowAlignCenter]}>

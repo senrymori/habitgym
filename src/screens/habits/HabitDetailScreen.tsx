@@ -21,7 +21,7 @@ export const HabitDetailScreen: FC<HabitTabStackNavigationScreenProps<'HabitDeta
   const { habitId } = props.route.params;
   const safeAreaStyles = useSafeAreaStyles();
   const { translations } = useLanguage();
-  const { toggleHabitCompletion, toggleTaskCompletion } = useHabitActions();
+  const { toggleHabitCompletion, toggleCounterFailure, toggleTaskCompletion } = useHabitActions();
   const { habit, tasks, completions, taskCompletions } = useHabitDetail(habitId);
 
   const [expandedDate, setExpandedDate] = useState<string | null>(null);
@@ -48,7 +48,7 @@ export const HabitDetailScreen: FC<HabitTabStackNavigationScreenProps<'HabitDeta
     (dateStr: string) => {
       if (!habit) return;
       if (habit.habitType === 'counter') {
-        toggleHabitCompletion(habit.id, dateStr);
+        toggleCounterFailure(habit.id, dateStr);
         return;
       }
       if (habit.habitType === 'weekly') {

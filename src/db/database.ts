@@ -1,6 +1,7 @@
 import { Database } from '@nozbe/watermelondb';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 import { schema } from './schema';
+import { migrations } from './migrations';
 import { Habit } from './models/Habit';
 import { HabitTask } from './models/HabitTask';
 import { HabitCompletion } from './models/HabitCompletion';
@@ -18,6 +19,7 @@ import { IS_IOS } from '@constants/device-consts.ts';
 
 const adapter = new SQLiteAdapter({
   schema,
+  migrations,
   dbName: 'HabitGym',
   jsi: IS_IOS,
   onSetUpError: (error) => {

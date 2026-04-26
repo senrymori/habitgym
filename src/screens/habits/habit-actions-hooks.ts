@@ -24,6 +24,22 @@ export function useHabitActions() {
     });
   };
 
+  const toggleCounterFailure = async (habitId: string, date: string) => {
+    await database.write(async () => {
+      const collection = database.get<HabitCompletion>('habit_completions');
+      const existing = await collection.query(Q.where('habit_id', habitId), Q.where('date', date)).fetch();
+      if (existing.length > 0) {
+        await Promise.all(existing.map((record) => record.destroyPermanently()));
+        return;
+      }
+      await collection.create((record) => {
+        record.habitId = habitId;
+        record.date = date;
+        record.completed = false;
+      });
+    });
+  };
+
   const toggleTaskCompletion = async (habitId: string, taskId: string, date: string) => {
     await database.write(async () => {
       const collection = database.get<TaskCompletion>('task_completions');
@@ -61,6 +77,7 @@ export function useHabitActions() {
 
   return {
     toggleHabitCompletion,
+    toggleCounterFailure,
     toggleTaskCompletion,
     deleteHabit,
   };

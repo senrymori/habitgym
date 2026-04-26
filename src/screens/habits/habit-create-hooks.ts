@@ -2,10 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Collection } from '@nozbe/watermelondb';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
-import { addDays, format, startOfDay } from 'date-fns';
 import { Habit } from '@db/models/Habit';
 import { HabitTask } from '@db/models/HabitTask';
-import { HabitCompletion } from '@db/models/HabitCompletion';
 import { useDatabase } from '@providers/DatabaseProvider';
 import { HabitTabStackNavigationHookProps } from '@navigation/home-tabs/habit-tab-stack/habit-tab-stack-types';
 import { HabitDayTasks, HabitFormValues, HabitTaskDraft } from './habit-create-types';
@@ -147,9 +145,6 @@ export function useHabitCreate(habitId?: string): UseHabitCreateResult {
                   );
                 }
               }
-              if (values.habitType === 'counter' && values.startDate) {
-                await seedCounterCompletions(habit.id, values.startDate, database.get<HabitCompletion>('habit_completions'));
-              }
             }
           });
 
@@ -178,28 +173,6 @@ function applyValuesToHabit(r: Habit, values: HabitFormValues): void {
   r.daysOfWeekRaw = JSON.stringify(days);
   r.trackingMode = values.habitType === 'tracking' ? values.trackingMode : undefined;
   r.useTaskTime = values.habitType === 'tracking' ? values.useTaskTime : true;
-}
-
-async function seedCounterCompletions(
-  habitId: string,
-  startDate: Date,
-  collection: Collection<HabitCompletion>
-): Promise<void> {
-  const start = startOfDay(startDate);
-  const end = startOfDay(new Date());
-  const days: Date[] = [];
-  for (let d = start; d <= end; d = addDays(d, 1)) {
-    days.push(new Date(d));
-  }
-  await Promise.all(
-    days.map((day) =>
-      collection.create((record) => {
-        record.habitId = habitId;
-        record.date = format(day, 'yyyy-MM-dd');
-        record.completed = true;
-      })
-    )
-  );
 }
 
 async function syncTasks(

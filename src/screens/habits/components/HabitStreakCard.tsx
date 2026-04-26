@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { addDays, format, startOfWeek, subDays, subWeeks } from 'date-fns';
+import { addDays, format, startOfDay, startOfWeek, subDays, subWeeks } from 'date-fns';
 import { Card } from '@ui-kits/Card';
 import { Typography } from '@ui-kits/Typography/Typography';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
@@ -25,7 +25,7 @@ export const HabitStreakCard: FC<HabitStreakCardProps> = function (props) {
   const text = useMemo(() => {
     const today = new Date();
     if (props.habit.habitType === 'counter') {
-      return buildCounterStreak(props.completions, today, translations, currentLanguage);
+      return buildCounterStreak(props.completions, today, props.habit.startDate, translations, currentLanguage);
     }
     if (props.habit.habitType === 'weekly') {
       const count = countWeeklyStreak(props.completions, props.habit.parsedDaysOfWeek, today);
@@ -58,13 +58,17 @@ export const HabitStreakCard: FC<HabitStreakCardProps> = function (props) {
 function buildCounterStreak(
   completions: HabitCompletion[],
   today: Date,
+  startDate: Date | undefined,
   translations: ReturnType<typeof useLanguage>['translations'],
   currentLanguage: ReturnType<typeof useLanguage>['currentLanguage']
 ): string {
-  const completedDates = new Set(completions.filter((c) => c.completed).map((c) => c.date));
+  const failureDates = new Set(completions.filter((c) => !c.completed).map((c) => c.date));
+  const startBoundary = startDate ? startOfDay(startDate) : null;
   let cursor = today;
   let streakDays = 0;
-  while (completedDates.has(format(cursor, DATE_FORMAT))) {
+  while (true) {
+    if (startBoundary && cursor < startBoundary) break;
+    if (failureDates.has(format(cursor, DATE_FORMAT))) break;
     streakDays += 1;
     cursor = subDays(cursor, 1);
   }

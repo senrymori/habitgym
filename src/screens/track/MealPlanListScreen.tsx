@@ -43,14 +43,18 @@ export const MealPlanListScreen: FC<TrackTabStackNavigationScreenProps<'MealPlan
   );
 
   const renderItem = useCallback<ListRenderItem<MealPlanSummary>>(
-    ({ item }) => <MealPlanCard item={item} onDelete={handleDelete} />,
+    ({ item }) => (
+      <MealPlanCard
+        item={item}
+        onDelete={handleDelete}
+      />
+    ),
     [handleDelete]
   );
 
   return (
     <View style={safeAreaStyles.pLayoutGrow}>
       <Header
-        isBack={true}
         title={translations.track.meal.listTitle}
         rightElement={
           <ButtonIcon
@@ -67,9 +71,7 @@ export const MealPlanListScreen: FC<TrackTabStackNavigationScreenProps<'MealPlan
         renderItem={renderItem}
         ListEmptyComponent={
           <View style={[sharedLayoutStyles.flex1, sharedLayoutStyles.center, styles.empty]}>
-            <Typography colorVariant={'textSecondary'}>
-              {translations.track.meal.emptyList}
-            </Typography>
+            <Typography colorVariant={'textSecondary'}>{translations.track.meal.emptyList}</Typography>
           </View>
         }
         contentContainerStyle={[

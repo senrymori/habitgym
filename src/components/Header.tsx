@@ -34,7 +34,9 @@ export const Header: FC<Props> = function (props) {
           </Typography>
         </View>
       )}
-      {props.rightElement}
+      {!!props.rightElement && (
+        <View style={[sharedLayoutStyles.flex1, sharedLayoutStyles.rowJustifyEnd]}>{props.rightElement}</View>
+      )}
     </View>
   );
 };

@@ -3,6 +3,15 @@ import { addColumns, createTable, schemaMigrations, unsafeExecuteSql } from '@no
 export const migrations = schemaMigrations({
   migrations: [
     {
+      toVersion: 9,
+      steps: [
+        addColumns({
+          table: 'gym_workout_sets',
+          columns: [{ name: 'calories', type: 'number', isOptional: true }],
+        }),
+      ],
+    },
+    {
       toVersion: 8,
       steps: [
         addColumns({

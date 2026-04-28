@@ -16,6 +16,7 @@ import { RestTimerBlock } from './components/RestTimerBlock';
 import { WorkoutFinishedView } from './components/WorkoutFinishedView';
 import { useGymWorkoutActive, useGymWorkoutActiveActions, useRestTimer } from './gym-workout-active-hooks';
 import { getTotalSetsForExercise } from './gym-workout-active-utils';
+import { estimateCardioCalories } from './gym-program-history-utils';
 import { parseDecimalInput } from './gym-form-utils';
 
 export const GymWorkoutActiveScreen: FC<GymTabStackNavigationScreenProps<'GymWorkoutActive'>> = function ({
@@ -97,9 +98,17 @@ export const GymWorkoutActiveScreen: FC<GymTabStackNavigationScreenProps<'GymWor
     if (!currentExercise) return;
     const weight = currentExercise.exerciseType === 'strength' ? parseDecimalInput(weightInput) : undefined;
     const reps = currentExercise.exerciseType === 'strength' ? currentExercise.reps : undefined;
-    completeSet(currentExercise.programExerciseId, progress.currentSetIndex + 1, reps, weight).catch((e) =>
-      console.error('[GymWorkoutActiveScreen] completeSet failed', e)
-    );
+    const calories =
+      currentExercise.exerciseType === 'cardio'
+        ? estimateCardioCalories(currentExercise.duration ?? 0)
+        : undefined;
+    completeSet(
+      currentExercise.programExerciseId,
+      progress.currentSetIndex + 1,
+      reps,
+      weight,
+      calories
+    ).catch((e) => console.error('[GymWorkoutActiveScreen] completeSet failed', e));
   }, [currentExercise, weightInput, progress.currentSetIndex, completeSet]);
 
   const handleSkipSet = useCallback(() => {

@@ -172,6 +172,10 @@ export const ru: typeof en = {
       titleRequired: 'Введите название программы',
       atLeastOneExercise: 'Добавьте хотя бы одно упражнение',
     },
+    history: {
+      caloriesBurned: 'сожжено {count} ккал',
+      empty: 'За этот месяц нет тренировок',
+    },
   },
   track: {
     exercises: 'Упражнения',

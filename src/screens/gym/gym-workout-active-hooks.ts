@@ -141,7 +141,8 @@ interface UseGymWorkoutActiveActionsResult {
     programExerciseId: string,
     setNumber: number,
     reps: number | undefined,
-    weight: number | undefined
+    weight: number | undefined,
+    calories?: number
   ) => Promise<void>;
   skipSet: (programExerciseId: string, setNumber: number) => Promise<void>;
   skipExercise: (programExerciseId: string, fromSetNumber: number, totalSets: number) => Promise<void>;
@@ -152,7 +153,13 @@ export function useGymWorkoutActiveActions(sessionId: string): UseGymWorkoutActi
   const database = useDatabase();
 
   const completeSet = useCallback(
-    async (programExerciseId: string, setNumber: number, reps: number | undefined, weight: number | undefined) => {
+    async (
+      programExerciseId: string,
+      setNumber: number,
+      reps: number | undefined,
+      weight: number | undefined,
+      calories?: number
+    ) => {
       const setsCollection = database.get<GymWorkoutSet>('gym_workout_sets');
       await database.write(async () => {
         await setsCollection.create((r) => {
@@ -162,6 +169,7 @@ export function useGymWorkoutActiveActions(sessionId: string): UseGymWorkoutActi
           r.weight = weight;
           r.reps = reps;
           r.completed = true;
+          r.calories = calories;
         });
       });
     },

@@ -170,6 +170,10 @@ export const en = {
       titleRequired: 'Enter program name',
       atLeastOneExercise: 'Add at least one exercise',
     },
+    history: {
+      caloriesBurned: 'burned {count} kcal',
+      empty: 'No workouts for this month',
+    },
   },
   track: {
     exercises: 'Exercises',

@@ -16,6 +16,7 @@ export class GymWorkoutSet extends Model {
   @field('weight') weight?: number;
   @field('reps') reps?: number;
   @field('completed') completed!: boolean;
+  @field('calories') calories?: number;
 
   @relation('gym_workout_sessions', 'session_id') session!: Relation<GymWorkoutSession>;
   @relation('gym_program_exercises', 'program_exercise_id') programExercise!: Relation<GymProgramExercise>;

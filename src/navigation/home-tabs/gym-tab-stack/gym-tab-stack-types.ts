@@ -2,10 +2,11 @@ import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-naviga
 
 export type GymTabStackParamList = {
   GymProgramList: undefined;
-  GymProgramDetail: { programId?: string };
+  GymProgramDetail: { programId?: string; selectedExerciseId?: string };
   GymWorkoutSetup: { programId: string };
   GymWorkoutActive: { sessionId: string };
   GymProgramHistory: { programId: string };
+  ExerciseList: { mode: 'select' | 'edit' };
 };
 
 export type GymTabStackNavigationScreenProps<T extends keyof GymTabStackParamList> = NativeStackScreenProps<

@@ -3105,7 +3105,9 @@ __metadata:
     react-native-calendars: "npm:^1.1314.0"
     react-native-color-matrix-image-filters: "npm:8.0.2"
     react-native-draggable-flatlist: "npm:4.0.3"
+    react-native-fs: "npm:^2.20.0"
     react-native-gesture-handler: "npm:2.30.0"
+    react-native-image-picker: "npm:^8.2.1"
     react-native-keyboard-controller: "npm:1.20.7"
     react-native-keychain: "npm:10.0.0"
     react-native-localize: "npm:3.6.1"
@@ -3113,9 +3115,11 @@ __metadata:
     react-native-mmkv: "npm:4.1.0"
     react-native-nitro-modules: "npm:0.31.10"
     react-native-reanimated: "npm:4.2.2"
+    react-native-reanimated-carousel: "npm:^4.0.3"
     react-native-safe-area-context: "npm:5.6.2"
     react-native-screens: "npm:4.19.0"
     react-native-svg: "npm:15.15.3"
+    react-native-video: "npm:^6.19.1"
     react-native-worklets: "npm:0.7.4"
     react-test-renderer: "npm:19.2.0"
     typescript: "npm:^5.8.3"
@@ -3591,6 +3595,13 @@ __metadata:
   dependencies:
     jackspeak: "npm:^4.2.3"
   checksum: 10c0/493eee4bece3f8b270cea8d3d6d1122ce008dd6b0d5aca8a3f1e623be6897be18c926018eadc454bd719bb7cc46d939c39fa2a05fff86b30f65382f020f6926d
+  languageName: node
+  linkType: hard
+
+"base-64@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "base-64@npm:0.1.0"
+  checksum: 10c0/fe0dcf076e823f04db7ee9b02495be08a91c445fbc6db03cb9913be9680e2fcc0af8b74459041fe08ad16800b1f65a549501d8f08696a8a6d32880789b7de69d
   languageName: node
   linkType: hard
 
@@ -8438,6 +8449,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-fs@npm:^2.20.0":
+  version: 2.20.0
+  resolution: "react-native-fs@npm:2.20.0"
+  dependencies:
+    base-64: "npm:^0.1.0"
+    utf8: "npm:^3.0.0"
+  peerDependencies:
+    react-native: "*"
+    react-native-windows: "*"
+  peerDependenciesMeta:
+    react-native-windows:
+      optional: true
+  checksum: 10c0/3722b5568610cd72f319c90f60ba8b019a005d015f27e49017ddd0ea314d1ea6991f79288c28549fdc2964dc81c0fa24f8a5f87a4a6283c97c6ea88d4caa6851
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:2.30.0":
   version: 2.30.0
   resolution: "react-native-gesture-handler@npm:2.30.0"
@@ -8449,6 +8476,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/26b94b0f97433fc6fb5b1c196ef29fce4f5a66c77fabb1bc33db91099357fbd44a5220783fcbb91d42700bcd578f2fd114314029d9e0d4674878767d9b7f5df6
+  languageName: node
+  linkType: hard
+
+"react-native-image-picker@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "react-native-image-picker@npm:8.2.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/82b6c51ece8d16806975aff7675d26280fdd2391c05ca9415620195cc6643ca0db4601d3b24e117d7f5331c2e55ba7c03090d276e55b3b5687a636245428a047
   languageName: node
   linkType: hard
 
@@ -8532,6 +8569,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-reanimated-carousel@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "react-native-reanimated-carousel@npm:4.0.3"
+  peerDependencies:
+    react: ">=18.0.0"
+    react-native: ">=0.70.3"
+    react-native-gesture-handler: ">=2.9.0"
+    react-native-reanimated: ">=3.0.0"
+  checksum: 10c0/b7d192fa5d5ad8b779cd51c67fe8a477eb338dbe29478eadb74deffd107b42e24fc7e581b6a055fae54cb8491801fb67f32be34b73e6bf346b6b9ab8ee51ad08
+  languageName: node
+  linkType: hard
+
 "react-native-reanimated@npm:4.2.2":
   version: 4.2.2
   resolution: "react-native-reanimated@npm:4.2.2"
@@ -8587,6 +8636,16 @@ __metadata:
   version: 1.0.5
   resolution: "react-native-swipe-gestures@npm:1.0.5"
   checksum: 10c0/33bb8bd402de82ed751a8f1913fe7e02ddc533edb7178bf9e499387b93d0d14154cef120f273c554bb988ad1ba87165b80be213611cb92af8875f2380ec7878b
+  languageName: node
+  linkType: hard
+
+"react-native-video@npm:^6.19.1":
+  version: 6.19.1
+  resolution: "react-native-video@npm:6.19.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/0a57c490f15d0388db083c678e4feb3f9c67914ac812ec6ce3d03ca498631039d445b7113cc812a304752a9895a9b021c3148cab5573b9d03646aee0be871896
   languageName: node
   linkType: hard
 
@@ -9991,6 +10050,13 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10c0/35e1179f872a53227bdf8a827f7911da4c37c0f4091c29b76b1e32473d1670ebe7bcd880b808b7549ba9a5605c233350f800ffab963ee4a4ee346ee983b6019b
+  languageName: node
+  linkType: hard
+
+"utf8@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "utf8@npm:3.0.0"
+  checksum: 10c0/675d008bab65fc463ce718d5cae8fd4c063540f269e4f25afebce643098439d53e7164bb1f193e0c3852825c7e3e32fbd8641163d19a618dbb53f1f09acb0d5a
   languageName: node
   linkType: hard
 

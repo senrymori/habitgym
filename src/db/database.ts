@@ -8,6 +8,8 @@ import { HabitCompletion } from './models/HabitCompletion';
 import { TaskCompletion } from './models/TaskCompletion';
 import { GymProgram } from './models/GymProgram';
 import { GymExercise } from './models/GymExercise';
+import { ExercisePhoto } from './models/ExercisePhoto';
+import { ExerciseVideo } from './models/ExerciseVideo';
 import { GymProgramExercise } from './models/GymProgramExercise';
 import { GymWorkoutSession } from './models/GymWorkoutSession';
 import { GymWorkoutSet } from './models/GymWorkoutSet';
@@ -36,6 +38,8 @@ export const database = new Database({
     TaskCompletion,
     GymProgram,
     GymExercise,
+    ExercisePhoto,
+    ExerciseVideo,
     GymProgramExercise,
     GymWorkoutSession,
     GymWorkoutSet,

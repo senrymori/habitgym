@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Alert, View } from 'react-native';
 import { Controller, FormProvider } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
@@ -14,7 +14,9 @@ import { useLanguage } from '@providers/language/LanguageProvider';
 import { TrackTabStackNavigationScreenProps } from '@navigation/home-tabs/track-tab-stack/track-tab-stack-types';
 import { useExerciseActions, useExerciseDetail } from './exercise-detail-hooks';
 import { exerciseTypeSegments } from './exercise-detail-consts';
+import { unlinkMediaFiles } from './exercise-media-utils';
 import { ExerciseTagsAutocomplete } from './components/ExerciseTagsAutocomplete';
+import { ExerciseMediaSection } from './components/ExerciseMediaSection';
 
 export const ExerciseDetailScreen: FC<TrackTabStackNavigationScreenProps<'ExerciseDetail'>> = function (props) {
   const safeAreaStyles = useSafeAreaStyles();
@@ -25,11 +27,13 @@ export const ExerciseDetailScreen: FC<TrackTabStackNavigationScreenProps<'Exerci
   const { saveExercise, deleteExercise } = useExerciseActions(exerciseId);
   const { control } = form;
   const { isValid, isSubmitting } = form.formState;
+  const savedRef = useRef(false);
 
   const onSubmit = useMemo(
     () =>
       form.handleSubmit(async (values) => {
         await saveExercise(values);
+        savedRef.current = true;
         props.navigation.goBack();
       }),
     [form, saveExercise, props.navigation]
@@ -45,6 +49,7 @@ export const ExerciseDetailScreen: FC<TrackTabStackNavigationScreenProps<'Exerci
           text: translations.track.exercise.delete,
           style: 'destructive',
           onPress: async () => {
+            savedRef.current = true;
             await deleteExercise();
             props.navigation.goBack();
           },
@@ -52,6 +57,22 @@ export const ExerciseDetailScreen: FC<TrackTabStackNavigationScreenProps<'Exerci
       ]
     );
   }, [translations, deleteExercise, props.navigation]);
+
+  useEffect(() => {
+    return () => {
+      if (savedRef.current) return;
+      const values = form.getValues();
+      const orphans = [
+        ...values.photos.filter((p) => !p.existingId).map((p) => p.uri),
+        ...values.videos.filter((v) => !v.existingId).map((v) => v.uri),
+      ];
+      if (orphans.length > 0) {
+        void unlinkMediaFiles(orphans);
+      }
+    };
+    // run cleanup only on unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const saveDisabled = !isValid || isSubmitting || !isReady;
 
@@ -132,6 +153,7 @@ export const ExerciseDetailScreen: FC<TrackTabStackNavigationScreenProps<'Exerci
               />
             )}
           />
+          <ExerciseMediaSection />
           <View style={sharedLayoutStyles.flex1} />
           <ButtonText
             text={translations.track.exercise.save}

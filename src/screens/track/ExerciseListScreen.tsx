@@ -1,5 +1,6 @@
 import { FC, useCallback, useState } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ButtonIcon } from '@ui-kits/Button/ButtonIcon';
 import { IconEnum } from '@ui-kits/Typography/typography-consts';
 import { Typography } from '@ui-kits/Typography/Typography';
@@ -8,7 +9,10 @@ import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { Header } from '@components/Header';
 import { useSafeAreaStyles } from '@providers/safe-area-styles/SafeAreaStylesProvider';
 import { useLanguage } from '@providers/language/LanguageProvider';
-import { TrackTabStackNavigationScreenProps } from '@navigation/home-tabs/track-tab-stack/track-tab-stack-types';
+import {
+  TrackTabStackNavigationHookProps,
+  TrackTabStackParamList,
+} from '@navigation/home-tabs/track-tab-stack/track-tab-stack-types';
 import { ExerciseType } from '@db/db-types';
 import { GymExercise } from '@db/models/GymExercise';
 import { useAllTags, useExercisesList } from './exercise-list-hooks';
@@ -21,11 +25,13 @@ function keyExtractor(item: GymExercise): string {
   return item.id;
 }
 
-export const ExerciseListScreen: FC<TrackTabStackNavigationScreenProps<'ExerciseList'>> = function (props) {
+export const ExerciseListScreen: FC = function () {
   const safeAreaStyles = useSafeAreaStyles();
   const { translations } = useLanguage();
+  const navigation = useNavigation<TrackTabStackNavigationHookProps<'ExerciseList'>>();
+  const route = useRoute<RouteProp<TrackTabStackParamList, 'ExerciseList'>>();
 
-  const mode = props.route.params.mode;
+  const mode = route.params.mode;
   const [filterType, setFilterType] = useState<ExerciseType>('strength');
   const [searchText, setSearchText] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -40,29 +46,29 @@ export const ExerciseListScreen: FC<TrackTabStackNavigationScreenProps<'Exercise
   }, []);
 
   const handleAddPress = useCallback(() => {
-    props.navigation.navigate('ExerciseDetail', {});
-  }, [props.navigation]);
+    navigation.navigate('ExerciseDetail', {});
+  }, [navigation]);
 
   const handlePressItem = useCallback(
     (id: string) => {
       if (mode === 'select') {
         // Push selected id back to the previous screen via merged route params.
         // Receiver must read selectedExerciseId from its route.params (e.g. via useEffect).
-        const state = props.navigation.getState();
+        const state = navigation.getState();
         const prevRoute = state?.routes[state.index - 1];
         if (prevRoute) {
-          props.navigation.navigate({
+          navigation.navigate({
             name: prevRoute.name,
             params: { selectedExerciseId: id },
             merge: true,
           } as never);
         }
-        props.navigation.goBack();
+        navigation.goBack();
         return;
       }
-      props.navigation.navigate('ExerciseDetail', { exerciseId: id });
+      navigation.navigate('ExerciseDetail', { exerciseId: id });
     },
-    [mode, props.navigation]
+    [mode, navigation]
   );
 
   const renderItem = useCallback<ListRenderItem<GymExercise>>(

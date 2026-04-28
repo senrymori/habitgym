@@ -7,6 +7,8 @@ export function getDefaultExerciseFormValues(): ExerciseFormValues {
     description: '',
     exerciseType: 'strength',
     tags: [],
+    photos: [],
+    videos: [],
   };
 }
 

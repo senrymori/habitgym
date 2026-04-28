@@ -6,6 +6,7 @@ import { GymProgramDetailScreen } from '@screens/gym/GymProgramDetailScreen';
 import { GymWorkoutSetupScreen } from '@screens/gym/GymWorkoutSetupScreen';
 import { GymWorkoutActiveScreen } from '@screens/gym/GymWorkoutActiveScreen';
 import { GymProgramHistoryScreen } from '@screens/gym/GymProgramHistoryScreen';
+import { ExerciseListScreen } from '@screens/track/ExerciseListScreen';
 
 const Stack = createNativeStackNavigator<GymTabStackParamList>();
 
@@ -31,6 +32,10 @@ export const GymTabStack: FC = function () {
       <Stack.Screen
         name={'GymProgramHistory'}
         component={GymProgramHistoryScreen}
+      />
+      <Stack.Screen
+        name={'ExerciseList'}
+        component={ExerciseListScreen}
       />
     </Stack.Navigator>
   );

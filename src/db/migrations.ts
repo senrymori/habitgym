@@ -1,7 +1,16 @@
-import { createTable, schemaMigrations, unsafeExecuteSql } from '@nozbe/watermelondb/Schema/migrations';
+import { addColumns, createTable, schemaMigrations, unsafeExecuteSql } from '@nozbe/watermelondb/Schema/migrations';
 
 export const migrations = schemaMigrations({
   migrations: [
+    {
+      toVersion: 8,
+      steps: [
+        addColumns({
+          table: 'gym_workout_sessions',
+          columns: [{ name: 'exercise_order', type: 'string', isOptional: true }],
+        }),
+      ],
+    },
     {
       toVersion: 7,
       steps: [

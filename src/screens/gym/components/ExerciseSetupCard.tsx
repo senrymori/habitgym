@@ -3,23 +3,20 @@ import { Pressable, View } from 'react-native';
 import { Controller, FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { Card } from '@ui-kits/Card';
 import { Typography } from '@ui-kits/Typography/Typography';
-import { ButtonIcon } from '@ui-kits/Button/ButtonIcon';
 import { InputText } from '@ui-kits/inputs/InputText';
-import { IconEnum } from '@ui-kits/Typography/typography-consts';
 import { sharedLayoutStyles } from '@ui-kits/shared-styles';
 import { useLanguage } from '@providers/language/LanguageProvider';
 import { ProgramFormValues } from '../gym-program-detail-types';
 import { numberToString, parseDecimalInput, parseIntegerInput } from '../gym-form-utils';
 
-interface ProgramExerciseCardProps {
+interface ExerciseSetupCardProps {
   item: FieldArrayWithId<ProgramFormValues, 'exercises', 'fieldKey'>;
   index: number;
   drag: () => void;
   isActive: boolean;
-  onRemove: (index: number) => void;
 }
 
-const ProgramExerciseCardBase: FC<ProgramExerciseCardProps> = function (props) {
+const ExerciseSetupCardBase: FC<ExerciseSetupCardProps> = function (props) {
   const { control } = useFormContext<ProgramFormValues>();
   const { translations } = useLanguage();
 
@@ -28,21 +25,12 @@ const ProgramExerciseCardBase: FC<ProgramExerciseCardProps> = function (props) {
       <Pressable
         onLongPress={props.drag}
         disabled={props.isActive}
-        delayLongPress={200}
-        style={[sharedLayoutStyles.rowCenterBetween, sharedLayoutStyles.gap8]}>
+        delayLongPress={200}>
         <Typography
           weight={600}
-          size={16}
-          style={sharedLayoutStyles.flex1}>
+          size={16}>
           {props.item.exerciseTitle}
         </Typography>
-        <ButtonIcon
-          icon={IconEnum.Trash}
-          variant={'outline'}
-          colorVariant={'contrast'}
-          size={'small'}
-          onPress={() => props.onRemove(props.index)}
-        />
       </Pressable>
 
       {props.item.exerciseType === 'strength' ? (
@@ -77,36 +65,18 @@ const ProgramExerciseCardBase: FC<ProgramExerciseCardProps> = function (props) {
               />
             </View>
           </View>
-          <View style={[sharedLayoutStyles.row, sharedLayoutStyles.gap8]}>
-            <View style={sharedLayoutStyles.flex1}>
-              <Controller
-                control={control}
-                name={`exercises.${props.index}.weight` as const}
-                render={({ field }) => (
-                  <InputText
-                    label={translations.gym.weight}
-                    value={numberToString(field.value)}
-                    onChangeText={(t) => field.onChange(parseDecimalInput(t))}
-                    keyboardType={'decimal-pad'}
-                  />
-                )}
+          <Controller
+            control={control}
+            name={`exercises.${props.index}.weight` as const}
+            render={({ field }) => (
+              <InputText
+                label={translations.gym.weight}
+                value={numberToString(field.value)}
+                onChangeText={(t) => field.onChange(parseDecimalInput(t))}
+                keyboardType={'decimal-pad'}
               />
-            </View>
-            <View style={sharedLayoutStyles.flex1}>
-              <Controller
-                control={control}
-                name={`exercises.${props.index}.restBetweenSets` as const}
-                render={({ field }) => (
-                  <InputText
-                    label={`${translations.gym.restBetweenSets}, ${translations.gym.minutes}`}
-                    value={numberToString(field.value)}
-                    onChangeText={(t) => field.onChange(parseIntegerInput(t))}
-                    keyboardType={'number-pad'}
-                  />
-                )}
-              />
-            </View>
-          </View>
+            )}
+          />
         </View>
       ) : (
         <Controller
@@ -126,4 +96,4 @@ const ProgramExerciseCardBase: FC<ProgramExerciseCardProps> = function (props) {
   );
 };
 
-export const ProgramExerciseCard = memo(ProgramExerciseCardBase);
+export const ExerciseSetupCard = memo(ExerciseSetupCardBase);

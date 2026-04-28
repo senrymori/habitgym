@@ -1,5 +1,5 @@
 import { Model, Query, Relation } from '@nozbe/watermelondb';
-import { field, date, relation, children } from '@nozbe/watermelondb/decorators';
+import { field, date, relation, children, text } from '@nozbe/watermelondb/decorators';
 import { WorkoutSessionStatus } from '@db/db-types';
 import { GymProgram } from './GymProgram';
 import { GymWorkoutSet } from './GymWorkoutSet';
@@ -15,7 +15,18 @@ export class GymWorkoutSession extends Model {
   @date('started_at') startedAt!: Date;
   @date('finished_at') finishedAt?: Date;
   @field('status') status!: WorkoutSessionStatus;
+  @text('exercise_order') exerciseOrderRaw?: string;
 
   @relation('gym_programs', 'program_id') program!: Relation<GymProgram>;
   @children('gym_workout_sets') sets!: Query<GymWorkoutSet>;
+
+  get exerciseOrder(): string[] | null {
+    if (!this.exerciseOrderRaw) return null;
+    try {
+      const parsed = JSON.parse(this.exerciseOrderRaw);
+      return Array.isArray(parsed) ? parsed : null;
+    } catch {
+      return null;
+    }
+  }
 }
